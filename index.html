@@ -68,7 +68,7 @@ button{font:inherit}
   font:400 clamp(84px,25vw,170px)/.82 var(--display);text-transform:uppercase;letter-spacing:.005em}
 .wordmark span{display:block}
 .wordmark span:last-child{text-align:right;color:transparent;-webkit-text-stroke:2px rgba(190,210,255,.95)}
-.hero-body{position:absolute;left:0;right:0;bottom:0;padding:0 18px 22px}
+.hero-body{position:absolute;left:0;right:0;bottom:0;padding:0 18px calc(var(--nav-h) + 20px + env(safe-area-inset-bottom))}
 .hero-body h1{margin:0;font:400 44px/1 var(--display);letter-spacing:.01em;text-transform:uppercase}
 .hero-body .th{margin:6px 0 12px;font-size:17px;font-weight:700;color:#dbe4ff}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}
@@ -250,7 +250,13 @@ dialog.lb::backdrop{background:rgba(4,9,30,.9)}
   .dark .grid{display:grid;grid-template-columns:1fr 1.15fr;gap:32px;align-items:start}
   .reel-sec{margin-top:0}
   .rail{margin:0;padding:4px 0 12px;scroll-padding-inline:0}
-  .story{width:250px}
+  .reel-sec .rail{display:grid;grid-template-columns:repeat(3,1fr);overflow:visible;gap:12px}
+  .story{width:auto}
+  .story{aspect-ratio:3/4}
+  .story .t{left:10px;right:10px;bottom:10px}
+  .story em{font-size:11px;padding:4px 6px;margin-bottom:5px}
+  .story b{font-size:15px}
+  .story span{font-size:12.5px;line-height:1.35}
   .journey .rail{flex-wrap:wrap;overflow:visible;gap:18px 0}
   .step{width:25%;padding-right:18px}
   .rail-hint{display:none}
@@ -322,11 +328,11 @@ dialog.lb::backdrop{background:rgba(4,9,30,.9)}
       <h2 id="brief-h">At a glance</h2>
       <div class="stats">
         <div><b>4</b><span>research projects<br>2 as first author</span></div>
-        <div><b>10</b><span>SIOGC events<br>500+ attendees</span></div>
+        <div><b>10</b><span>OB/GYN club events<br>500+ attendees</span></div>
         <div><b>3.77</b><span>GPAX<br>Medicine</span></div>
       </div>
       <dl class="facts">
-        <div><dt>OB/GYN</dt><dd>Electives at 4 Thai centres, incl. Kanchanaphisek Medical Center. Duke University exchange, April 2027</dd></div>
+        <div><dt>OB/GYN</dt><dd>Electives at Siriraj, Thammasat and Prince of Songkla University. Kanchanaphisek Medical Center, October 2026. Duke University exchange, April 2027</dd></div>
         <div><dt>Research</dt><dd>First author, PPROM before 28 weeks (under peer review)</dd></div>
         <div><dt>Education</dt><dd>MD Siriraj 2027, with MSc Biomedical Engineering (MAP-C) and Health Business Management (CMMU)</dd></div>
         <div><dt>Award</dt><dd>Siriraj Internal Medicine clinical excellence and ethics award, 2025</dd></div>
@@ -343,12 +349,12 @@ dialog.lb::backdrop{background:rgba(4,9,30,.9)}
       <section class="reel-sec" aria-labelledby="reel-h">
         <h2 id="reel-h">Highlights</h2>
         <div class="rail" tabindex="0" aria-label="Highlights, scrolls sideways">
-          <a class="story" href="#leadership" style="--c:var(--leader)"><img src="images/ob-labor-xs.jpg" alt="" loading="lazy"><div class="t"><em>OB/GYN</em><b>Founded SIOGC</b><span>Hands-on OB/GYN skills for juniors</span></div></a>
-          <a class="story" href="#clinical" style="--c:var(--intl)"><img src="images/tu-team-xs.jpg" alt="" loading="lazy"><div class="t"><em>OB/GYN</em><b>4 OB/GYN electives</b><span>Siriraj, Thammasat, PSU, Kanchanaphisek</span></div></a>
-          <a class="story" href="#clinical" style="--c:var(--intl)"><img src="images/nuh-mentor-xs.jpg" alt="" loading="lazy" style="object-position:35% 50%"><div class="t"><em>Abroad</em><b>NUH Singapore</b><span>Clinical exchange, 2025</span></div></a>
-          <a class="story" href="#community" style="--c:var(--community)"><img src="images/sangkhla-xs.jpg" alt="" loading="lazy" style="object-position:30% 50%"><div class="t"><em>Field</em><b>Sangkhlaburi</b><span>Mobile medical unit, refugee camp</span></div></a>
-          <a class="story" href="#innovation" style="--c:var(--innov)"><img src="images/mdcu-xs.jpg" alt="" loading="lazy"><div class="t"><em>Startup</em><b>PodiPatch wins MDCU</b><span>Pitching Challenge 2025</span></div></a>
-          <a class="story" href="#awards" style="--c:#8a5a00"><img src="images/ipho-xs.jpg" alt="" loading="lazy"><div class="t"><em>Medal</em><b>IPhO Bronze</b><span>Tel Aviv, 2019</span></div></a>
+          <a class="story" href="#leadership" style="--c:var(--leader)"><img src="images/ob-pap-xs.jpg" srcset="images/ob-pap-xs.jpg 330w, images/ob-pap-s.jpg 540w" sizes="290px" alt="" loading="lazy"><div class="t"><em>OB/GYN</em><b>Founded SIOGC</b><span>Hands-on OB/GYN skills for juniors</span></div></a>
+          <a class="story" href="#clinical" style="--c:var(--intl)"><img src="images/tu-team-xs.jpg" srcset="images/tu-team-xs.jpg 330w, images/tu-team-s.jpg 540w" sizes="(min-width:900px) 200px, 50vw" alt="" loading="lazy"><div class="t"><em>OB/GYN</em><b>OB/GYN electives</b><span>3 done, Kanchanaphisek in October</span></div></a>
+          <a class="story" href="#clinical" style="--c:var(--intl)"><img src="images/nuh-mentor-xs.jpg" srcset="images/nuh-mentor-xs.jpg 330w, images/nuh-mentor-s.jpg 540w" sizes="(min-width:900px) 200px, 50vw" alt="" loading="lazy" style="object-position:35% 50%"><div class="t"><em>Abroad</em><b>NUH Singapore</b><span>Clinical exchange, 2025</span></div></a>
+          <a class="story" href="#community" style="--c:var(--community)"><img src="images/sangkhla-xs.jpg" srcset="images/sangkhla-xs.jpg 330w, images/sangkhla-s.jpg 540w" sizes="(min-width:900px) 200px, 50vw" alt="" loading="lazy" style="object-position:30% 50%"><div class="t"><em>Field</em><b>Sangkhlaburi</b><span>Mobile medical unit, refugee camp</span></div></a>
+          <a class="story" href="#innovation" style="--c:var(--innov)"><img src="images/mdcu-xs.jpg" srcset="images/mdcu-xs.jpg 330w, images/mdcu-s.jpg 540w" sizes="(min-width:900px) 200px, 50vw" alt="" loading="lazy"><div class="t"><em>Startup</em><b>PodiPatch wins MDCU</b><span>Pitching Challenge 2025</span></div></a>
+          <a class="story" href="#awards" style="--c:#8a5a00"><img src="images/ipho-xs.jpg" srcset="images/ipho-xs.jpg 330w, images/ipho-s.jpg 540w" sizes="(min-width:900px) 200px, 50vw" alt="" loading="lazy"><div class="t"><em>Medal</em><b>IPhO Bronze</b><span>Tel Aviv, 2019</span></div></a>
         </div>
         <p class="rail-hint" aria-hidden="true">Swipe for more <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></p>
       </section>
@@ -361,7 +367,7 @@ dialog.lb::backdrop{background:rgba(4,9,30,.9)}
           <div class="step"><b>2023</b><p>IFMSA research exchange in Marseille. Co-founded the Global Health Club</p></div>
           <div class="step"><b>2024</b><p>Founded SIOGC. Joined Nirvamed</p></div>
           <div class="step"><b>2025</b><p>Clinical exchange at NUH Singapore. Oral presentation at Siriraj Research Day</p></div>
-          <div class="step"><b>2026</b><p>OB/GYN electives at Siriraj, Thammasat, Songklanagarind and Kanchanaphisek</p></div>
+          <div class="step"><b>2026</b><p>OB/GYN electives at Siriraj, Thammasat and Prince of Songkla University. Kanchanaphisek in October</p></div>
           <div class="step"><b>2027</b><p>OB/GYN exchange at Duke University. MD graduation</p></div>
         </div>
       </section>
@@ -393,12 +399,12 @@ dialog.lb::backdrop{background:rgba(4,9,30,.9)}
   <div class="wrap">
     <h2 class="h-sec" id="work-h">Work</h2>
     <nav class="tiles" aria-label="Work chapters">
-      <a class="tile" href="#clinical" style="--c:var(--intl)"><img src="images/nuh-or-xs.jpg" alt="" loading="lazy"><em>01</em><div class="t"><b>Clinical &amp; International</b><span>4 OB/GYN electives</span></div></a>
-      <a class="tile" href="#research" style="--c:var(--research)"><img src="images/marseille-xs.jpg" alt="" loading="lazy" style="object-position:70% 50%"><em>02</em><div class="t"><b>Research</b><span>4 projects</span></div></a>
-      <a class="tile" href="#leadership" style="--c:var(--leader)"><img src="images/ob-pap-xs.jpg" alt="" loading="lazy"><em>03</em><div class="t"><b>Leadership</b><span>Founder, SIOGC</span></div></a>
-      <a class="tile" href="#innovation" style="--c:var(--innov)"><img src="images/mgc-xs.jpg" alt="" loading="lazy"><em>04</em><div class="t"><b>Innovation</b><span>3 startups</span></div></a>
-      <a class="tile" href="#global" style="--c:var(--global)"><img src="images/pmac25-b-xs.jpg" alt="" loading="lazy" style="object-position:50% 30%"><em>05</em><div class="t"><b>Global Health</b><span>PMAC, 2 years</span></div></a>
-      <a class="tile" href="#community" style="--c:var(--community)"><img src="images/issara-me-xs.jpg" alt="" loading="lazy"><em>06</em><div class="t"><b>Community</b><span>Sangkhlaburi, Khlong Toei</span></div></a>
+      <a class="tile" href="#clinical" style="--c:var(--intl)"><img src="images/nuh-or-xs.jpg" srcset="images/nuh-or-xs.jpg 330w, images/nuh-or-s.jpg 540w" sizes="(min-width:900px) 200px, 50vw" alt="" loading="lazy"><em>01</em><div class="t"><b>Clinical &amp; International</b><span>OB/GYN electives</span></div></a>
+      <a class="tile" href="#research" style="--c:var(--research)"><img src="images/marseille2-xs.jpg" srcset="images/marseille2-xs.jpg 330w, images/marseille2-s.jpg 540w" sizes="(min-width:900px) 200px, 50vw" alt="" loading="lazy" style="object-position:70% 50%"><em>02</em><div class="t"><b>Research</b><span>4 projects</span></div></a>
+      <a class="tile" href="#leadership" style="--c:var(--leader)"><img src="images/ob-pap-xs.jpg" srcset="images/ob-pap-xs.jpg 330w, images/ob-pap-s.jpg 540w" sizes="(min-width:900px) 200px, 50vw" alt="" loading="lazy"><em>03</em><div class="t"><b>Leadership</b><span>Founder, SIOGC</span></div></a>
+      <a class="tile" href="#innovation" style="--c:var(--innov)"><img src="images/mgc-xs.jpg" srcset="images/mgc-xs.jpg 330w, images/mgc-s.jpg 540w" sizes="(min-width:900px) 200px, 50vw" alt="" loading="lazy"><em>04</em><div class="t"><b>Innovation</b><span>3 startups</span></div></a>
+      <a class="tile" href="#global" style="--c:var(--global)"><img src="images/pmac25-b-xs.jpg" srcset="images/pmac25-b-xs.jpg 330w, images/pmac25-b-s.jpg 540w" sizes="(min-width:900px) 200px, 50vw" alt="" loading="lazy" style="object-position:50% 30%"><em>05</em><div class="t"><b>Global Health</b><span>PMAC, 2 years</span></div></a>
+      <a class="tile" href="#community" style="--c:var(--community)"><img src="images/issara-me-xs.jpg" srcset="images/issara-me-xs.jpg 330w, images/issara-me-s.jpg 540w" sizes="(min-width:900px) 200px, 50vw" alt="" loading="lazy"><em>06</em><div class="t"><b>Community</b><span>Sangkhlaburi, Khlong Toei</span></div></a>
     </nav>
   </div>
 </section>
@@ -409,12 +415,12 @@ dialog.lb::backdrop{background:rgba(4,9,30,.9)}
     <div class="cover" data-zoom="images/psu-or.jpg" data-pos="50% 35%" data-cap="OB/GYN elective, Prince of Songkla University, 2026">
       <img src="images/psu-or-s.jpg" srcset="images/psu-or-xs.jpg 330w, images/psu-or-s.jpg 540w, images/psu-or.jpg 1050w" sizes="(min-width:900px) 55vw, 100vw" width="540" height="720" alt="" loading="lazy" decoding="async" style="object-position:50% 35%">
       <span class="num">01</span>
-      <div class="head"><h2 id="h-clin">Clinical &amp; International</h2><p>OB/GYN electives at 4 Thai centres, plus competitive exchanges abroad</p></div>
+      <div class="head"><h2 id="h-clin">Clinical &amp; International</h2><p>OB/GYN electives at 3 Thai centres, a 4th in October 2026, plus competitive exchanges abroad</p></div>
     </div>
     <div class="strip">
       <figure class="ph" data-zoom="images/psu-lap.jpg" data-cap="Laparoscopic gynecologic surgery, Prince of Songkla University, 2026"><img src="images/psu-lap-s.jpg" srcset="images/psu-lap-xs.jpg 330w, images/psu-lap-s.jpg 540w, images/psu-lap.jpg 1050w" sizes="(min-width:900px) 200px, 45vw" width="540" height="720" alt="" loading="lazy" decoding="async"><figcaption>Laparoscopic gynecologic surgery, Prince of Songkla University, 2026</figcaption></figure>
       <figure class="ph w" data-zoom="images/tu.jpg" data-cap="Thammasat Fertility and Assisted Reproductive Technology Center, 2026"><img src="images/tu-s.jpg" srcset="images/tu-xs.jpg 412w, images/tu-s.jpg 675w, images/tu.jpg 1312w" sizes="(min-width:900px) 300px, 80vw" width="675" height="720" alt="" loading="lazy" decoding="async"><figcaption>Thammasat Fertility and Assisted Reproductive Technology Center, 2026</figcaption></figure>
-      <figure class="ph" data-zoom="images/psu.jpg" data-cap="Songklanagarind Hospital, OB/GYN elective, 2026"><img src="images/psu-s.jpg" srcset="images/psu-xs.jpg 330w, images/psu-s.jpg 540w, images/psu.jpg 1050w" sizes="(min-width:900px) 200px, 45vw" width="540" height="720" alt="" loading="lazy" decoding="async"><figcaption>Songklanagarind Hospital, OB/GYN elective, 2026</figcaption></figure>
+      <figure class="ph" data-zoom="images/psu.jpg" data-cap="Songklanagarind Hospital, Prince of Songkla University, 2026"><img src="images/psu-s.jpg" srcset="images/psu-xs.jpg 330w, images/psu-s.jpg 540w, images/psu.jpg 1050w" sizes="(min-width:900px) 200px, 45vw" width="540" height="720" alt="" loading="lazy" decoding="async"><figcaption>Songklanagarind Hospital, Prince of Songkla University, 2026</figcaption></figure>
       <figure class="ph" data-zoom="images/nuh-or.jpg" data-cap="Operating theatre team, NUH Singapore, 2025"><img src="images/nuh-or-s.jpg" srcset="images/nuh-or-xs.jpg 330w, images/nuh-or-s.jpg 540w, images/nuh-or.jpg 1050w" sizes="(min-width:900px) 200px, 45vw" width="540" height="720" alt="" loading="lazy" decoding="async"><figcaption>Operating theatre team, NUH Singapore, 2025</figcaption></figure>
       <figure class="ph w" data-zoom="images/nuh-mentor.jpg" data-cap="With my supervisor, NUH Singapore, 2025"><img src="images/nuh-mentor-s.jpg" srcset="images/nuh-mentor-xs.jpg 440w, images/nuh-mentor-s.jpg 720w, images/nuh-mentor.jpg 1400w" sizes="(min-width:900px) 300px, 80vw" width="720" height="540" alt="" loading="lazy" decoding="async"><figcaption>With my supervisor, NUH Singapore, 2025</figcaption></figure>
       <figure class="ph" data-zoom="images/tu-team.jpg" data-cap="With the OB/GYN team, Thammasat elective, 2026"><img src="images/tu-team-s.jpg" srcset="images/tu-team-xs.jpg 330w, images/tu-team-s.jpg 540w, images/tu-team.jpg 1050w" sizes="(min-width:900px) 200px, 45vw" width="540" height="720" alt="" loading="lazy" decoding="async"><figcaption>With the OB/GYN team, Thammasat elective, 2026</figcaption></figure>
@@ -425,10 +431,10 @@ dialog.lb::backdrop{background:rgba(4,9,30,.9)}
         <dl class="years">
           <div><dt>2023</dt><dd>IFMSA research exchange, Marseille</dd></div>
           <div><dt>2025</dt><dd>Clinical exchange, NUH Singapore</dd></div>
-          <div><dt>2026</dt><dd>OB/GYN electives at 4 Thai centres</dd></div>
+          <div><dt>2026</dt><dd>OB/GYN electives at Siriraj, Thammasat and Prince of Songkla University</dd></div>
           <div><dt>2027</dt><dd>OB/GYN clinical exchange, Duke University</dd></div>
         </dl>
-        <div class="nums"><div><b>1/12</b><span>selected, IFMSA</span></div><div><b>4/15</b><span>selected, NUH</span></div><div><b>4</b><span>OB/GYN electives</span></div></div>
+        <div class="nums"><div><b>1/12</b><span>selected, IFMSA</span></div><div><b>4/15</b><span>selected, NUH</span></div><div><b>3</b><span>OB/GYN electives done</span></div></div>
       </div>
       <ul class="items">
         <li><h3>OB/GYN elective, Kanchanaphisek Medical Center</h3><p>18–30 October 2026</p><div class="tags"><span class="tag ob">OB/GYN</span><span class="tag">Upcoming</span></div></li>
@@ -444,14 +450,14 @@ dialog.lb::backdrop{background:rgba(4,9,30,.9)}
 <!-- 02 RESEARCH -->
 <section class="chap" id="research" style="--c:var(--research)" aria-labelledby="h-research">
   <div class="wrap">
-    <div class="cover" data-zoom="images/marseille.jpg" data-pos="88% 35%" data-cap="Lab team, Aix-Marseille Université, 2023">
-      <img src="images/marseille-s.jpg" srcset="images/marseille-xs.jpg 440w, images/marseille-s.jpg 720w, images/marseille.jpg 1400w" sizes="(min-width:900px) 55vw, 100vw" width="720" height="540" alt="" loading="lazy" decoding="async" style="object-position:88% 35%">
+    <div class="cover" data-zoom="images/marseille2.jpg" data-pos="70% 35%" data-cap="Lab team, Aix-Marseille Université, 2023">
+      <img src="images/marseille2-s.jpg" srcset="images/marseille2-xs.jpg 440w, images/marseille2-s.jpg 720w, images/marseille2.jpg 1400w" sizes="(min-width:900px) 55vw, 100vw" width="720" height="540" alt="" loading="lazy" decoding="async" style="object-position:70% 35%">
       <span class="num">02</span>
       <div class="head"><h2 id="h-research">Research</h2><p>4 research projects, 3 at Siriraj and 1 in Marseille, plus an MSc thesis</p></div>
     </div>
     <div class="strip">
       <figure class="ph" data-zoom="images/resday.jpg" data-cap="Presenting my ALBI score study, Siriraj Research Day 2025"><img src="images/resday-s.jpg" srcset="images/resday-xs.jpg 247w, images/resday-s.jpg 405w, images/resday.jpg 787w" sizes="(min-width:900px) 200px, 45vw" width="405" height="720" alt="" loading="lazy" decoding="async"><figcaption>Presenting my ALBI score study, Siriraj Research Day 2025</figcaption></figure>
-      <figure class="ph w" data-zoom="images/marseille2.jpg" data-cap="With the lab team I worked in, Aix-Marseille Université, 2023"><img src="images/marseille2-s.jpg" srcset="images/marseille2-xs.jpg 440w, images/marseille2-s.jpg 720w, images/marseille2.jpg 1400w" sizes="(min-width:900px) 300px, 80vw" width="720" height="540" alt="" loading="lazy" decoding="async"><figcaption>With the lab team I worked in, Aix-Marseille Université, 2023</figcaption></figure>
+      <figure class="ph w" data-zoom="images/marseille.jpg" data-pos="80% 50%" data-cap="With the lab team I worked in, Aix-Marseille Université, 2023"><img src="images/marseille-s.jpg" srcset="images/marseille-xs.jpg 440w, images/marseille-s.jpg 720w, images/marseille.jpg 1400w" sizes="(min-width:900px) 300px, 80vw" width="720" height="540" alt="" loading="lazy" decoding="async" style="object-position:80% 50%"><figcaption>With the lab team I worked in, Aix-Marseille Université, 2023</figcaption></figure>
     </div>
     <div class="side">
       <div class="overview">
@@ -503,7 +509,7 @@ dialog.lb::backdrop{background:rgba(4,9,30,.9)}
         <li><h3>Clinical skills booths, Siriraj Open House</h3><p>Normal labor, IUD insertion, PV and Pap smear on simulators</p><div class="tags"><span class="tag ob">OB/GYN</span></div></li>
         <li><h3>HPV Self-Test Community Project</h3><p>With the Ministry of Social Development and Human Security</p><div class="tags"><span class="tag ob">OB/GYN</span></div></li>
         <li><h3>Resident Playbook Movie Night</h3><p>Case-based review of common OB/GYN topics before exams</p><div class="tags"><span class="tag ob">OB/GYN</span></div></li>
-        <li><h3>OB/GYN Student Research Club Unit</h3><p>Student research unit within SIOGC</p><div class="tags"><span class="tag">Founder</span></div></li>
+        <li><h3>OB/GYN Student Research Unit</h3><p>Student research unit within SIOGC</p><div class="tags"><span class="tag">Founder</span></div></li>
       </ul>
     </div>
   </div>
@@ -526,7 +532,7 @@ dialog.lb::backdrop{background:rgba(4,9,30,.9)}
     <div class="side">
       <div class="overview">
         <dl class="years">
-          <div><dt>2020</dt><dd>Founded UNITE. Passed the 42 Bangkok Piscine</dd></div>
+          <div><dt>2021</dt><dd>Won UniHack with UNITE. Selected as a 42 Bangkok cadet</dd></div>
           <div><dt>2024</dt><dd>PodiPatch, Grand Finalist at NUS. Joined Nirvamed</dd></div>
           <div><dt>2025</dt><dd>PodiPatch wins the MDCU Pitching Challenge</dd></div>
         </dl>
@@ -620,7 +626,7 @@ dialog.lb::backdrop{background:rgba(4,9,30,.9)}
       <ul class="medals">
         <li><span class="m"><svg viewBox="0 0 24 24" fill="#8a5a00" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 17l-6.1 3.4 1.5-6.8L2.2 9l6.9-.7z"/></svg></span><div><h3 lang="th">รางวัล "<span class="nw">สิ่งชูวงศ์ องอาจยุทธ</span> และ<span class="nw">ธีรพร เลิศรัฐ</span>"</h3><p>Best 5th-year student in Internal Medicine for clinical performance and ethics, Siriraj</p></div><time>2025</time></li>
         <li><span class="m"><svg viewBox="0 0 24 24" fill="#8a5a00" aria-hidden="true"><path d="M7 4h10v3a5 5 0 01-10 0zM5 5H3v1a4 4 0 004 4M19 5h2v1a4 4 0 01-4 4M9 15h6l1 5H8z"/></svg></span><div><h3>Winner, MDCU Pitching Challenge</h3><p>PodiPatch, 30,000 THB prize</p></div><time>2025</time></li>
-        <li><span class="m s"><svg viewBox="0 0 24 24" fill="#3a4a7a" aria-hidden="true"><path d="M4 6h16v10H4zM8 20h8M12 16v4"/></svg></span><div><h3>Selected oral presentation</h3><p>Siriraj Research Day, ALBI score study</p></div><time>2025</time></li>
+        <li><span class="m s"><svg viewBox="0 0 24 24" fill="none" stroke="#3a4a7a" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16v10H4zM8 20h8M12 16v4"/></svg></span><div><h3>Selected oral presentation</h3><p>Siriraj Research Day, ALBI score study</p></div><time>2025</time></li>
         <li><span class="m s"><svg viewBox="0 0 24 24" fill="#3a4a7a" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 17l-6.1 3.4 1.5-6.8L2.2 9l6.9-.7z"/></svg></span><div><h3>Grand Finalist, NUS Medical Grand Challenge</h3><p>PodiPatch, Singapore</p></div><time>2024</time></li>
         <li><span class="m"><svg viewBox="0 0 24 24" fill="#8a5a00" aria-hidden="true"><path d="M7 4h10v3a5 5 0 01-10 0zM5 5H3v1a4 4 0 004 4M19 5h2v1a4 4 0 01-4 4M9 15h6l1 5H8z"/></svg></span><div><h3>Winner, UniHack</h3><p>UNITE, hosted by Chula Tech Startup</p></div><time>2021</time></li>
         <li><span class="m b"><svg viewBox="0 0 24 24" fill="#6b3a12" aria-hidden="true"><circle cx="12" cy="14" r="6"/><path d="M8 2h3l1 5-3 1zM16 2h-3l-1 5 3 1z"/></svg></span><div><h3>Bronze, International Physics Olympiad</h3><p>IPhO 50, Tel Aviv. Honorable Mention, APhO 20</p></div><time>2019</time></li>
