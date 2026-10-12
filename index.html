@@ -1,616 +1,715 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>BTC DCA Calculator</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#071034">
+<title>Yanaphat Pinijpichitkul · Portfolio</title>
+<meta name="description" content="Yanaphat Pinijpichitkul, 6th-year medical student at Siriraj Hospital, Mahidol University. OB/GYN, research, innovation and global health.">
+<link rel="canonical" href="https://tonyjamezzz.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tonyjamezzz.github.io/">
+<meta property="og:title" content="Yanaphat Pinijpichitkul · Portfolio">
+<meta property="og:description" content="6th-year medical student, Siriraj. OB/GYN, research, innovation and global health.">
+<meta property="og:image" content="https://tonyjamezzz.github.io/images/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23071034'/%3E%3Ctext x='32' y='45' font-family='Impact,Arial Black' font-size='30' fill='%23ffffff' text-anchor='middle'%3EYP%3C/text%3E%3C/svg%3E">
+<link rel="preload" href="fonts/anton-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" type="image/webp" imagesrcset="images/cover-s.webp 560w, images/cover.webp 900w" imagesizes="(min-width:900px) 40vw, 130vw">
+<style>
+@font-face{font-family:"Anton";font-weight:400;font-display:swap;src:url(fonts/anton-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:"Noto Sans Thai";font-weight:400;font-display:swap;src:url(fonts/noto-sans-thai-thai-400-normal.woff2) format("woff2");unicode-range:U+0E01-0E5B,U+200C-200D,U+25CC}
+@font-face{font-family:"Noto Sans Thai";font-weight:700;font-display:swap;src:url(fonts/noto-sans-thai-thai-700-normal.woff2) format("woff2");unicode-range:U+0E01-0E5B,U+200C-200D,U+25CC}
+@font-face{font-family:"Noto Sans Thai";font-weight:800;font-display:swap;src:url(fonts/noto-sans-thai-thai-800-normal.woff2) format("woff2");unicode-range:U+0E01-0E5B,U+200C-200D,U+25CC}
+@font-face{font-family:"Noto Sans Thai";font-weight:400;font-display:swap;src:url(fonts/noto-sans-thai-latin-400-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+2000-206F,U+20AC,U+2122,U+2212}
+@font-face{font-family:"Noto Sans Thai";font-weight:700;font-display:swap;src:url(fonts/noto-sans-thai-latin-700-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+2000-206F,U+20AC,U+2122,U+2212}
+@font-face{font-family:"Noto Sans Thai";font-weight:800;font-display:swap;src:url(fonts/noto-sans-thai-latin-800-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+2000-206F,U+20AC,U+2122,U+2212}
+:root{
+  --night:#071034;--navy:#0d1b6e;--royal:#2a55e6;--ice:#f3f6ff;--ink:#141b33;--soft:#4c5573;--line:#dfe5f4;
+  --research:#5b2bc4;--intl:#0e6f8c;--leader:#c02c72;--innov:#2a55e6;--global:#0c7a5f;--community:#a65a12;
+  --display:"Anton","Impact","Arial Narrow Bold",sans-serif;
+  --body:"Noto Sans Thai",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --nav-h:64px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:12px}
+body{margin:0;background:var(--ice);color:var(--ink);font:17px/1.6 var(--body);overflow-x:hidden}
+body:has(dialog[open]){overflow:hidden}
+img{display:block;max-width:100%}
+a{color:var(--royal)}
+button{font:inherit}
+:focus-visible{outline:3px solid var(--navy);outline-offset:3px;border-radius:10px}
+.on-dark :focus-visible{outline-color:#fff}
+.wrap{width:100%;max-width:1200px;margin:0 auto;padding:0 18px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.nw{white-space:nowrap}
+.progress{position:fixed;top:0;left:0;height:3px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,#7aa2ff,#2a55e6,#c02c72);z-index:70}
 
-  <style>
-    :root { --primary:#f7931a; --bg:#f4f7f6; --dark:#1a1a1a; --white:#fff; --green:#27ae60; --red:#e74c3c; --blue:#3498db; }
-    * { box-sizing:border-box; margin:0; padding:0; font-family:-apple-system, system-ui, sans-serif; }
-    body { background:var(--bg); padding:15px; }
-    .container { max-width:560px; margin:0 auto; }
+/* ---------- photos ---------- */
+.ph{position:relative;margin:0;overflow:hidden;border-radius:18px;background:#d9e1f5}
+.ph img{width:100%;height:100%;object-fit:cover}
+.ph figcaption{position:absolute;left:0;right:0;bottom:0;padding:28px 12px 10px;font-size:13.5px;line-height:1.35;font-weight:700;color:#fff;
+  background:linear-gradient(180deg,rgba(4,9,30,0),rgba(4,9,30,.82));text-wrap:balance}
+.ph .zoom{position:absolute;inset:0;z-index:3;background:none;border:0;padding:0;cursor:zoom-in}
+.ph .zoom:focus-visible{outline:3px solid #fff;outline-offset:-6px}
 
-    .price-box { background:var(--dark); color:var(--primary); text-align:center; padding:15px; border-radius:12px; margin-bottom:12px; font-weight:900; }
-    .card { background:var(--white); padding:18px; border-radius:15px; box-shadow:0 4px 10px rgba(0,0,0,0.08); margin-bottom:16px; }
+/* ---------- hero ---------- */
+.hero{position:relative;height:clamp(600px,100svh,860px);background:var(--night);color:#fff;overflow:hidden;isolation:isolate}
+.hero-photo{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.hero-photo img{position:absolute;bottom:0;left:50%;transform:translateX(-46%);height:min(84%,760px);width:auto;max-width:none;filter:drop-shadow(0 20px 40px rgba(0,0,0,.45))}
+.hero-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,16,52,0) 52%,rgba(7,16,52,.75) 74%,var(--night) 94%)}
+.hero::before{content:"";position:absolute;inset:0;z-index:-3;background:radial-gradient(60% 45% at 55% 55%,rgba(42,85,230,.45),transparent 70%)}
+.hero::after{content:"";position:absolute;inset:0;z-index:-3;pointer-events:none;opacity:.3;background:
+  linear-gradient(rgba(122,162,255,.25) 1px,transparent 1px) 0 0/36px 36px,linear-gradient(90deg,rgba(122,162,255,.25) 1px,transparent 1px) 0 0/36px 36px;
+  -webkit-mask:linear-gradient(180deg,#000,transparent 22%,transparent 70%,#000);mask:linear-gradient(180deg,#000,transparent 22%,transparent 70%,#000)}
+.wordmark{position:absolute;z-index:-2;top:calc(14px + env(safe-area-inset-top));left:14px;right:14px;margin:0;
+  font:400 clamp(84px,25vw,170px)/.82 var(--display);text-transform:uppercase;letter-spacing:.005em}
+.wordmark span{display:block}
+.wordmark span:last-child{text-align:right;color:transparent;-webkit-text-stroke:2px rgba(190,210,255,.95)}
+.hero-body{position:absolute;left:0;right:0;bottom:0;padding:0 18px 22px}
+.hero-body h1{margin:0;font:400 44px/1 var(--display);letter-spacing:.01em;text-transform:uppercase}
+.hero-body .th{margin:6px 0 12px;font-size:17px;font-weight:700;color:#dbe4ff}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}
+.chips li{font-size:14px;font-weight:700;padding:6px 12px;border-radius:999px;color:#eef2ff;background:rgba(255,255,255,.12);border:1px solid rgba(170,195,255,.45);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.chips li.hot{background:var(--leader);border-color:rgba(255,200,225,.7)}
+.scroll-cue{display:inline-flex;align-items:center;gap:6px;min-height:44px;margin-top:8px;color:#c5d2ff;font-size:14.5px;text-decoration:none}
+.scroll-cue svg{width:20px;height:20px}
 
-    /* Tabs */
-    .tabs { display:flex; gap:10px; margin: 0 0 14px; }
-    .tab-btn {
-      flex:1; padding:12px; border-radius:12px; border:2px solid #eee;
-      background:#fff; font-weight:900; cursor:pointer;
-    }
-    .tab-btn.active { border-color:var(--primary); color:#111; box-shadow:0 4px 10px rgba(247,147,26,0.15); }
-    .tab-panel { display:none; }
-    .tab-panel.active { display:block; }
+/* ---------- brief ---------- */
+.dark{background:var(--night);color:#fff;padding:6px 0 34px}
+.glass{background:linear-gradient(160deg,rgba(255,255,255,.10),rgba(255,255,255,.035));border:1px solid rgba(160,185,255,.3);border-radius:22px;
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 20px 40px -20px rgba(0,0,0,.6)}
+.brief{padding:20px 18px}
+.brief h2{margin:0 0 14px;font:400 26px/1 var(--display);letter-spacing:.03em;text-transform:uppercase}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
+.stats div{border-radius:16px;padding:10px 6px;text-align:center;background:rgba(122,162,255,.13);border:1px solid rgba(122,162,255,.28)}
+.stats b{display:block;font:400 32px/1.05 var(--display);letter-spacing:.02em}
+.stats span{display:block;font-size:13.5px;line-height:1.35;color:#d3dcfb;margin-top:3px}
+.facts{margin:0;display:grid;gap:10px}
+.facts div{display:grid;grid-template-columns:88px minmax(0,1fr);gap:10px;font-size:15.5px;line-height:1.5}
+.facts dt{color:#a9baf2;font-weight:700}
+.facts dd{margin:0;color:#f2f5ff}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 18px;border-radius:14px;font-weight:700;font-size:15.5px;text-decoration:none;border:0;cursor:pointer}
+.btn svg{width:19px;height:19px;flex:none}
+.btn.primary{background:#fff;color:var(--navy)}
+.btn.ghost{background:rgba(255,255,255,.07);color:#fff;border:1px solid rgba(170,195,255,.55)}
 
-    /* Inputs */
-    label { display:block; margin:10px 0 5px; font-size:0.9rem; font-weight:900; }
-    input, select {
-      width:100%; padding:12px; border:2px solid #eee; border-radius:10px;
-      font-size:1rem; margin-bottom:10px; outline:none; background:#fff;
-    }
-    input:focus, select:focus { border-color:var(--primary); }
-    button.primary { width:100%; padding:15px; background:var(--primary); color:#fff; border:none; border-radius:10px; font-weight:900; font-size:1rem; cursor:pointer; }
+/* ---------- highlight reel ---------- */
+.reel-sec{margin-top:28px}
+.reel-sec h2,.journey h2{margin:0 0 12px;font:400 26px/1 var(--display);letter-spacing:.03em;text-transform:uppercase}
+.rail{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:18px;padding:4px 18px 12px;margin:0 -18px;scrollbar-width:none;overscroll-behavior-x:contain}
+.rail::-webkit-scrollbar{display:none}
+.story{flex:none;width:min(70vw,290px);aspect-ratio:4/5;scroll-snap-align:start;position:relative;border-radius:20px;overflow:hidden;color:#fff;text-decoration:none;
+  box-shadow:0 18px 30px -18px rgba(0,0,0,.8);border:1px solid rgba(160,185,255,.25)}
+.story img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.story:hover img{transform:scale(1.04)}
+.story::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,9,30,0) 45%,rgba(4,9,30,.9))}
+.story .t{position:absolute;left:14px;right:14px;bottom:14px;z-index:1}
+.story em{display:inline-block;font:400 13px/1 var(--display);font-style:normal;letter-spacing:.08em;padding:5px 8px;border-radius:6px;background:var(--c);margin-bottom:8px}
+.story b{display:block;font-size:18px;line-height:1.25;font-weight:800}
+.story span{display:block;font-size:14px;color:#d3dcfb;margin-top:2px}
+.rail-hint{display:flex;align-items:center;gap:6px;margin:2px 0 0;font-size:13.5px;color:#a9baf2}
 
-    /* Result */
-    .result-box { margin-top:16px; padding:18px; background:#f0fdf4; border-radius:12px; border:2px solid var(--green); text-align:center; }
-    .result-val { font-size:2rem; font-weight:1000; color:var(--green); margin-top:6px; }
-    .muted { font-size:.82rem; color:#666; margin-top:8px; text-align:center; }
+.journey{margin-top:26px}
+.step{flex:none;width:210px;scroll-snap-align:start;position:relative;padding-top:26px}
+.step::before{content:"";position:absolute;top:8px;left:0;right:-12px;height:2px;background:linear-gradient(90deg,rgba(122,162,255,.7),rgba(122,162,255,.2))}
+.step::after{content:"";position:absolute;top:2px;left:0;width:14px;height:14px;border-radius:50%;background:var(--night);border:3px solid #7aa2ff;box-shadow:0 0 12px #7aa2ff}
+.step b{font:400 27px/1 var(--display);letter-spacing:.03em}
+.step p{margin:6px 0 0;font-size:15px;line-height:1.5;color:#d3dcfb}
 
-    /* Bar */
-    .visual-bar-container { margin-top:14px; height:28px; background:#eee; border-radius:14px; overflow:hidden; display:flex; }
-    .invested-bar { background:#333; height:100%; transition:width .35s; }
-    .profit-bar { background:var(--primary); height:100%; transition:width .35s; }
-    .legend { display:flex; justify-content:space-between; font-size:.75rem; margin-top:6px; color:#666; }
+/* ---------- chapter nav ---------- */
+.index{padding:34px 0 0}
+.h-sec{display:flex;align-items:center;gap:10px;margin:0 0 14px;font:400 30px/1.05 var(--display);letter-spacing:.02em;text-transform:uppercase;color:var(--navy)}
+.h-sec::before{content:"";flex:none;width:14px;height:14px;border-radius:4px;background:var(--c,var(--navy))}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tile{position:relative;display:block;aspect-ratio:1/1;border-radius:20px;overflow:hidden;color:#fff;text-decoration:none;background:var(--c)}
+.tile img{width:100%;height:100%;object-fit:cover;opacity:.9}
+.tile::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,color-mix(in srgb,var(--c) 10%,transparent) 30%,color-mix(in srgb,var(--c) 92%,#000) 100%)}
+.tile .t{position:absolute;left:12px;right:12px;bottom:11px;z-index:1}
+.tile em{position:absolute;top:10px;left:12px;z-index:1;font:400 16px var(--display);font-style:normal;letter-spacing:.06em;text-shadow:0 1px 6px rgba(0,0,0,.4)}
+.tile b{display:block;font-size:17px;line-height:1.2;font-weight:800}
+.tile span{font-size:13.5px;opacity:.95}
 
-    /* Chart */
-    .chart-head { display:flex; gap:10px; align-items:center; justify-content:space-between; margin-bottom:10px; }
-    .chart-title { font-weight:1000; color:#111; }
-    canvas { width:100% !important; height:220px !important; border-radius:12px; }
+/* ---------- chapter ---------- */
+.chap{padding:44px 0 4px}
+.cover{position:relative;margin:0 -18px;height:min(118vw,560px);overflow:hidden;color:#fff;isolation:isolate}
+.cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.cover::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(4,9,30,0) 40%,color-mix(in srgb,var(--c) 55%,rgba(4,9,30,.9)) 78%,color-mix(in srgb,var(--c) 70%,#040920) 100%)}
+.cover .num{position:absolute;top:14px;left:18px;font:400 15px var(--display);letter-spacing:.1em;padding:5px 9px;border-radius:6px;background:var(--c)}
+.cover .head{position:absolute;left:18px;right:18px;bottom:18px}
+.cover h2{margin:0;font:400 clamp(42px,12vw,72px)/.92 var(--display);text-transform:uppercase;letter-spacing:.01em}
+.cover p{margin:8px 0 0;font-size:15.5px;line-height:1.45;font-weight:700;color:#eef2ff;max-width:46ch}
+.cover .zoom{position:absolute;inset:0;z-index:0;background:none;border:0;cursor:zoom-in}
+.strip{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:18px;padding:12px 18px 10px;margin:0 -18px;scrollbar-width:none;overscroll-behavior-x:contain}
+.strip::-webkit-scrollbar{display:none}
+.strip .ph{flex:none;height:min(66vw,300px);aspect-ratio:3/4;scroll-snap-align:start}
+.strip .ph.w{aspect-ratio:4/3}
+.overview{background:#fff;border:1px solid var(--line);border-radius:22px;padding:16px;display:grid;gap:14px;box-shadow:0 16px 34px -28px rgba(13,27,110,.45)}
+.years{display:grid;gap:10px;margin:0}
+.years div{display:grid;grid-template-columns:58px minmax(0,1fr);gap:10px;align-items:baseline}
+.years dt{font:400 21px/1 var(--display);letter-spacing:.03em;color:var(--c)}
+.years dd{margin:0;font-size:15.5px;line-height:1.5}
+.nums{display:flex;gap:10px;padding-top:12px;border-top:1px dashed var(--line)}
+.nums div{flex:1;min-width:0}
+.nums b{display:block;font:400 30px/1 var(--display);color:var(--c);letter-spacing:.02em}
+.nums span{display:block;font-size:13.5px;line-height:1.35;color:var(--soft);margin-top:4px}
+.items{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:8px}
+.items li{background:#fff;border:1px solid var(--line);border-radius:16px;padding:13px 14px 13px 18px;position:relative}
+.items li::before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:4px;border-radius:0 4px 4px 0;background:var(--c)}
+.items h3{margin:0;font-size:16.5px;line-height:1.4;font-weight:700}
+.items p{margin:3px 0 0;font-size:15px;line-height:1.5;color:var(--soft)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.tag{font-size:13.5px;font-weight:700;padding:2px 10px;border-radius:999px;color:var(--c);background:color-mix(in srgb,var(--c) 11%,#fff)}
+.tag.ob{color:#fff;background:var(--leader)}
 
-    /* Infographic blocks */
-    .grid { display:grid; grid-template-columns:1fr; gap:12px; }
-    @media (min-width: 520px) { .grid.two { grid-template-columns:1fr 1fr; } }
+/* ---------- awards ---------- */
+.awards{padding:48px 0 4px}
+.aw-hero{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.aw-hero .ph{aspect-ratio:3/4}
+.medals{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.medals li{display:grid;grid-template-columns:48px minmax(0,1fr) auto;gap:12px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:18px;padding:12px 14px}
+.medals .m{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(145deg,#fff3cf,#f0c766);box-shadow:inset 0 -3px 0 rgba(160,110,20,.25)}
+.medals .m.b{background:linear-gradient(145deg,#ffe2cc,#d79a6b)}
+.medals .m.s{background:linear-gradient(145deg,#eef3ff,#b9c6e8)}
+.medals .m svg{width:26px;height:26px}
+.medals h3{margin:0;font-size:16px;line-height:1.4;font-weight:700}
+.medals p{margin:2px 0 0;font-size:15px;color:var(--soft);line-height:1.45}
+.medals time{font:400 18px var(--display);color:var(--navy);letter-spacing:.03em}
 
-    .pill {
-      display:inline-flex; gap:8px; align-items:center;
-      padding:8px 10px; border-radius:999px; border:2px solid #eee; background:#fff; font-weight:900; font-size:.85rem;
-    }
-    .pill .dot { width:10px; height:10px; border-radius:50%; background:var(--primary); display:inline-block; }
+/* ---------- statement ---------- */
+.statement{padding:40px 0 4px}
+.quote{margin:0 0 18px;padding:20px 18px;border-radius:22px;background:var(--navy);color:#fff;position:relative;overflow:hidden}
+.quote::before{content:"";position:absolute;right:-60px;bottom:-60px;width:200px;height:200px;border-radius:50%;border:2px solid rgba(122,162,255,.35)}
+.quote p{margin:0;font-size:19px;line-height:1.6;font-weight:700;position:relative}
+.quote footer{margin-top:10px;font-size:14px;color:#c5d2ff;position:relative}
+.st-photo{aspect-ratio:4/3;margin-bottom:18px}
+.essay{font-size:16.5px;line-height:1.85}
+.essay p{margin:0 0 12px}
+details.more summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:8px;min-height:44px;font-weight:700;font-size:15.5px;color:var(--navy)}
+details.more summary::-webkit-details-marker{display:none}
+details.more summary::after{content:"";width:8px;height:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg) translateY(-2px);transition:transform .2s}
+details.more[open] summary::after{transform:rotate(-135deg) translateY(-2px)}
 
-    .kpi { display:flex; align-items:flex-start; gap:12px; }
-    .kpi .ico {
-      width:42px; height:42px; border-radius:12px; display:flex; align-items:center; justify-content:center;
-      background:#fff4e5; border:2px solid rgba(247,147,26,0.25); font-size:20px;
-    }
-    .kpi h4 { font-size:1rem; margin-bottom:4px; }
-    .kpi p { font-size:.85rem; color:#555; line-height:1.35; }
+/* ---------- contact ---------- */
+.contact{margin-top:48px;background:var(--night);color:#fff;padding:36px 0 calc(var(--nav-h) + 40px + env(safe-area-inset-bottom));position:relative;overflow:hidden}
+.contact .big{margin:0;font:400 clamp(64px,20vw,140px)/.85 var(--display);color:transparent;-webkit-text-stroke:1.5px rgba(170,195,255,.75);text-transform:uppercase}
+.contact .who{margin:14px 0 18px;font-size:16px;color:#d3dcfb}
+.contact .who b{display:block;color:#fff;font-size:18px}
+.small{margin-top:24px;font-size:14px;color:#a9baf2}
 
-    .meter { margin-top:10px; }
-    .meter .row { display:flex; justify-content:space-between; font-size:.78rem; color:#666; margin-bottom:6px; }
-    .meter .bar { height:12px; background:#eee; border-radius:999px; overflow:hidden; display:flex; }
-    .meter .bar > div { height:100%; }
-    .seg-risk { background:var(--red); }
-    .seg-neutral { background:#777; }
-    .seg-upside { background:var(--green); }
+/* ---------- nav ---------- */
+.bnav{position:fixed;left:10px;right:10px;bottom:calc(8px + env(safe-area-inset-bottom));z-index:50;height:var(--nav-h);display:grid;grid-template-columns:repeat(4,1fr);border-radius:20px;padding:6px;
+  background:rgba(7,16,52,.86);border:1px solid rgba(160,185,255,.3);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 14px 30px -10px rgba(7,16,52,.6)}
+.bnav a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;text-decoration:none;color:#b5c3f0;font-size:12.5px;font-weight:700;border-radius:14px}
+.bnav a svg{width:22px;height:22px}
+.bnav a[aria-current="true"]{color:#fff;background:rgba(122,162,255,.22)}
+.tbar{display:none}
 
-    /* Risk matrix */
-    .matrix { display:grid; grid-template-columns: 1fr 1fr; gap:10px; }
-    .box { padding:12px; border-radius:12px; border:2px solid #eee; background:#fff; }
-    .box h5 { font-size:.95rem; margin-bottom:6px; }
-    .tag { display:inline-block; font-size:.72rem; font-weight:900; padding:5px 8px; border-radius:999px; border:2px solid #eee; margin-bottom:8px; }
-    .tag.high { border-color: rgba(231,76,60,0.35); background: rgba(231,76,60,0.08); }
-    .tag.med { border-color: rgba(52,152,219,0.35); background: rgba(52,152,219,0.08); }
-    .tag.low { border-color: rgba(39,174,96,0.35); background: rgba(39,174,96,0.08); }
+/* ---------- lightbox ---------- */
+dialog.lb{border:0;padding:0;margin:0;width:100vw;height:100dvh;max-width:none;max-height:none;background:#040920;color:#fff}
+dialog.lb::backdrop{background:rgba(4,9,30,.9)}
+.lb-stage{position:absolute;inset:60px 0 96px;display:grid;place-items:center;padding:0 10px}
+.lb-stage img{max-width:100%;max-height:100%;object-fit:contain;border-radius:10px}
+.lb-cap{position:absolute;left:18px;right:18px;bottom:calc(24px + env(safe-area-inset-bottom));margin:0;font-size:15.5px;line-height:1.5;color:#e1e8ff;text-align:center}
+.lb-count{position:absolute;top:18px;left:18px;font:400 19px var(--display);letter-spacing:.06em;color:#b5c3f0}
+.lb-btn{position:absolute;width:48px;height:48px;border-radius:50%;border:1px solid rgba(160,185,255,.45);background:rgba(255,255,255,.1);color:#fff;display:grid;place-items:center;cursor:pointer}
+.lb-btn[hidden]{display:none}
+.lb-btn svg{width:22px;height:22px}
+.lb-close{top:8px;right:12px}.lb-prev{left:12px;top:50%;margin-top:-24px}.lb-next{right:12px;top:50%;margin-top:-24px}
 
-    /* Optional: Myth vs Fact styling */
-    .tag.fact { border-color: rgba(39,174,96,0.35); background: rgba(39,174,96,0.08); }
-    .tag.myth { border-color: rgba(231,76,60,0.35); background: rgba(231,76,60,0.08); }
-
-    ul { margin-left:18px; }
-    li { margin:6px 0; font-size:.85rem; color:#555; line-height:1.35; }
-
-    /* Simple donut infographic */
-    .donut-wrap { display:flex; gap:14px; align-items:center; flex-wrap:wrap; }
-    .donut {
-      width:110px; height:110px; border-radius:50%;
-      background: conic-gradient(var(--green) 0 40%, var(--primary) 40% 70%, var(--red) 70% 100%);
-      position:relative;
-      border:2px solid #eee;
-    }
-    .donut:after {
-      content:"";
-      position:absolute; inset:18px; border-radius:50%;
-      background:#fff; border:2px solid #eee;
-    }
-    .donut-legend { font-size:.85rem; color:#555; line-height:1.4; }
-    .mini { font-size:.78rem; color:#666; margin-top:6px; }
-
-    .disclaimer {
-      margin-top:12px; font-size:.78rem; color:#666; line-height:1.4;
-      padding:12px; border-radius:12px; border:2px dashed #eee; background:#fff;
-    }
-  </style>
-
-  <!-- Chart.js for BTC line graph -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+@media (min-width:600px) and (max-width:899px){
+  .tiles{grid-template-columns:repeat(3,1fr)}
+  .cover{height:560px}
+  .hero-photo img{object-position:60% 25%}
+}
+@media (min-width:900px){
+  :root{--nav-h:0px}
+  html{scroll-padding-top:84px}
+  .bnav{display:none}
+  .tbar{display:flex;align-items:center;justify-content:space-between;position:fixed;top:0;left:0;right:0;z-index:60;height:66px;padding:0 40px;
+    background:rgba(7,16,52,.82);border-bottom:1px solid rgba(160,185,255,.2);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+  .tbar .me{color:#fff;text-decoration:none;font:400 20px var(--display);letter-spacing:.04em;text-transform:uppercase}
+  .tbar nav{display:flex;gap:4px;padding:4px;border-radius:999px;border:1px solid rgba(160,185,255,.3)}
+  .tbar nav a{display:inline-flex;align-items:center;min-height:40px;padding:0 16px;border-radius:999px;color:#d3dcfb;text-decoration:none;font-size:15px;font-weight:700}
+  .tbar nav a[aria-current="true"]{background:#fff;color:var(--navy)}
+  .wrap{padding:0 40px}
+  .hero{height:100vh;min-height:700px;max-height:940px}
+  .hero-photo{left:44%}
+  .hero-photo img{height:94%;left:46%;transform:translateX(-50%)}
+  .hero-photo::after{background:linear-gradient(180deg,rgba(7,16,52,0) 80%,var(--night) 100%)}
+  .hero::before{background:radial-gradient(40% 55% at 68% 55%,rgba(42,85,230,.45),transparent 70%)}
+  .wordmark{top:auto;bottom:300px;left:40px;right:auto;font-size:min(15vw,230px)}
+  .wordmark span:last-child{text-align:left}
+  .hero-body{left:40px;right:auto;width:44%;bottom:64px;padding:0}
+  .hero-body h1{font-size:58px}
+  .dark{padding:12px 0 64px}
+  .dark .grid>*{min-width:0}
+  .dark .grid{display:grid;grid-template-columns:1fr 1.15fr;gap:32px;align-items:start}
+  .reel-sec{margin-top:0}
+  .rail{margin:0;padding:4px 0 12px;scroll-padding-inline:0}
+  .story{width:250px}
+  .journey .rail{flex-wrap:wrap;overflow:visible;gap:18px 0}
+  .step{width:25%;padding-right:18px}
+  .rail-hint{display:none}
+  .tiles{grid-template-columns:repeat(6,1fr)}
+  .tile{aspect-ratio:3/4}
+  .chap{padding:80px 0 4px}
+  .chap .wrap{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);grid-template-rows:auto 1fr;gap:16px 36px;align-items:start}
+  .chap .wrap>*{min-width:0}
+  .strip{grid-row:2}
+  .cover{grid-column:1;grid-row:1;margin:0;height:auto;aspect-ratio:4/3;border-radius:26px}
+  .cover .head{left:28px;bottom:26px}
+  .cover .num{left:28px;top:24px}
+  .chap .side{grid-column:2;grid-row:1 / 3}
+  .strip{grid-column:1;display:flex;flex-wrap:wrap;overflow:visible;margin:0;padding:0;gap:12px}
+  .strip .ph,.strip .ph.w{height:210px;aspect-ratio:auto;flex:3 1 150px}
+  .strip .ph.w{flex:4 1 270px}
+  .items{margin-top:12px}
+  .aw-wrap{display:grid;grid-template-columns:380px 1fr;gap:36px;align-items:start}
+  .aw-hero{position:sticky;top:96px}
+  .statement .wrap{display:grid;grid-template-columns:420px 1fr;gap:40px;align-items:start}
+  .essay{max-width:68ch}
+  .contact{padding-bottom:40px}
+  .contact .wrap{display:grid;grid-template-columns:1fr auto;align-items:end;gap:30px}
+}
+@media (prefers-reduced-motion:no-preference){
+  .wordmark span{animation:rise 1s cubic-bezier(.2,.75,.2,1) both}
+  .wordmark span:last-child{animation-delay:.15s}
+  .hero-body{animation:fade .9s .45s ease both}
+  .hero-photo img{animation:appear 1.1s .1s ease both}
+  @keyframes appear{from{opacity:0}}
+  @keyframes rise{from{opacity:0;transform:translateY(40px);clip-path:inset(0 0 100% 0)}to{clip-path:inset(0 0 0 0)}}
+  @keyframes fade{from{opacity:0;transform:translateY(10px)}}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
 </head>
-
 <body>
-  <div class="container">
-    <div class="price-box">
-      BTC PRICE: <span id="price">FETCHING...</span>
-    </div>
+<div class="progress" aria-hidden="true"></div>
 
-    <div class="tabs">
-      <button class="tab-btn active" id="tabCalc" type="button">Calculator</button>
-      <button class="tab-btn" id="tabRisk" type="button">Risk & Upside</button>
-    </div>
+<header class="tbar on-dark">
+  <a class="me" href="#top">Yanaphat P.</a>
+  <nav aria-label="Main menu">
+    <a href="#top" data-nav="top">Home</a>
+    <a href="#statement" data-nav="why">Why OB/GYN</a>
+    <a href="#work" data-nav="work">Work</a>
+    <a href="#contact" data-nav="contact">Contact</a>
+  </nav>
+</header>
 
-    <!-- TAB 1: Calculator -->
-    <section class="tab-panel active" id="panelCalc">
-      <div class="card">
-        <div class="chart-head">
-          <div class="chart-title">BTC Price Chart</div>
-          <select id="range">
-            <option value="7">7D</option>
-            <option value="30" selected>30D</option>
-            <option value="90">90D</option>
-            <option value="365">1Y</option>
-          </select>
-        </div>
-        <canvas id="btcChart"></canvas>
-        <div class="muted" id="chartStatus"></div>
-      </div>
-
-      <div class="card">
-        <h3>DCA Calculator</h3>
-
-        <label>Monthly Investment ($)</label>
-        <input type="number" id="monthly" value="500" inputmode="decimal" min="0" step="1" />
-
-        <label>Years to Hold</label>
-        <input type="number" id="years" value="5" inputmode="decimal" min="0" step="1" />
-
-        <button class="primary" id="calcBtn" type="button">Calculate My Profit</button>
-
-        <div class="result-box">
-          <div style="font-size:0.8rem;color:#444;font-weight:900;">ESTIMATED PORTFOLIO VALUE</div>
-          <div id="future-val" class="result-val">$0</div>
-          <div class="muted" id="invested-text"></div>
-        </div>
-
-        <div class="visual-bar-container" aria-label="Invested vs Profit bar">
-          <div id="bar-invested" class="invested-bar" style="width:50%;"></div>
-          <div id="bar-profit" class="profit-bar" style="width:50%;"></div>
-        </div>
-        <div class="legend">
-          <span>● Invested</span>
-          <span>Profit ●</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- TAB 2: Risk & Upside (Persuasion version + additions) -->
-    <section class="tab-panel" id="panelRisk">
-      <div class="card">
-        <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;">
-          <div style="font-weight:1000;font-size:1.15rem;">What is Bitcoin (BTC)?</div>
-          <div class="pill"><span class="dot"></span><span>Digital, scarce, global</span></div>
-        </div>
-
-        <div class="grid" style="margin-top:14px;">
-          <div class="box">
-            <div class="kpi">
-              <div class="ico">🪙</div>
-              <div>
-                <h4>One sentence explanation</h4>
-                <p><b>Bitcoin is a digital asset with a fixed supply</b> that can be sent globally without needing a bank.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="box">
-            <div class="kpi">
-              <div class="ico">🔒</div>
-              <div>
-                <h4>Why people care</h4>
-                <p>It’s designed to be <b>scarce</b> (limited supply) and <b>portable</b> (move value across borders), with a network that runs 24/7.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div style="font-weight:1000;margin-bottom:10px;">Why it has potential (Upside drivers)</div>
-
-        <div class="grid two">
-          <div class="box">
-            <span class="tag low">UPSIDE</span>
-            <h5>Scarcity story (supply is limited)</h5>
-            <ul>
-              <li>Only a limited number of BTC will ever exist.</li>
-              <li>If demand grows over years, scarcity can support price.</li>
-              <li>Works best with a long time horizon (not weeks).</li>
-            </ul>
-          </div>
-
-          <div class="box">
-            <span class="tag low">UPSIDE</span>
-            <h5>Adoption + access keeps improving</h5>
-            <ul>
-              <li>More exchanges, wallets, custody, and “easy buy” options.</li>
-              <li>More investors can participate than in early years.</li>
-              <li>Liquidity and market infrastructure have matured.</li>
-            </ul>
-          </div>
-
-          <div class="box">
-            <span class="tag low">UPSIDE</span>
-            <h5>Macro hedge narrative</h5>
-            <ul>
-              <li>Some investors treat BTC like “digital gold”.</li>
-              <li>It can be a hedge against currency debasement (not guaranteed).</li>
-              <li>Often performs best when risk appetite returns.</li>
-            </ul>
-          </div>
-
-          <div class="box">
-            <span class="tag low">UPSIDE</span>
-            <h5>Asymmetric bet profile</h5>
-            <ul>
-              <li>Small allocation can matter if BTC grows a lot.</li>
-              <li>Downside is limited to what you invest (if no leverage).</li>
-              <li>Upside can be multiples over long periods (but volatile).</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="meter">
-          <div class="row"><span>Long-term upside (conceptual)</span><span>High</span></div>
-          <div class="bar">
-            <div class="seg-upside" style="width:72%"></div>
-            <div class="seg-neutral" style="width:18%"></div>
-            <div class="seg-risk" style="width:10%"></div>
-          </div>
-          <div class="mini">Not a forecast — just an intuitive “why people allocate”.</div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div style="font-weight:1000;margin-bottom:10px;">What can go wrong (Risks you must respect)</div>
-
-        <div class="matrix">
-          <div class="box">
-            <span class="tag high">HIGH</span>
-            <h5>Volatility & drawdowns</h5>
-            <ul>
-              <li>BTC can drop hard in bear markets (sometimes 50%+).</li>
-              <li>If you might need the money soon, BTC is a bad fit.</li>
-              <li>Best defense: long horizon + DCA + don’t over-allocate.</li>
-            </ul>
-          </div>
-
-          <div class="box">
-            <span class="tag high">HIGH</span>
-            <h5>Custody / exchange risk</h5>
-            <ul>
-              <li>Exchanges can fail; self-custody has “lose seed = lose funds”.</li>
-              <li>Use reputable platforms, strong passwords + 2FA.</li>
-              <li>For larger amounts, consider a hardware wallet.</li>
-            </ul>
-          </div>
-
-          <div class="box">
-            <span class="tag med">MED</span>
-            <h5>Regulation / taxes</h5>
-            <ul>
-              <li>Rules can change: reporting, taxes, restrictions.</li>
-              <li>Know your local regulation and keep records.</li>
-            </ul>
-          </div>
-
-          <div class="box">
-            <span class="tag med">MED</span>
-            <h5>Behavior risk (most common)</h5>
-            <ul>
-              <li>People buy after pumps and sell after crashes.</li>
-              <li>Leverage destroys portfolios quickly.</li>
-              <li>Plan your allocation and follow it.</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="meter">
-          <div class="row"><span>Risk intensity (conceptual)</span><span>Very High</span></div>
-          <div class="bar">
-            <div class="seg-risk" style="width:66%"></div>
-            <div class="seg-neutral" style="width:24%"></div>
-            <div class="seg-upside" style="width:10%"></div>
-          </div>
-          <div class="mini">BTC is powerful, but only if you can handle the swings.</div>
-        </div>
-      </div>
-
-      <!-- Added: Myth vs Fact -->
-      <div class="card">
-        <div style="font-weight:1000;margin-bottom:10px;">Myth vs Fact (quick clarity)</div>
-
-        <div class="grid two">
-          <div class="box">
-            <span class="tag myth">MYTH</span>
-            <h5>“BTC is a scam / has no value”</h5>
-            <ul>
-              <li>Scams exist around crypto, but BTC itself is a widely traded asset.</li>
-              <li>Value comes from scarcity + global transferability + network adoption.</li>
-            </ul>
-          </div>
-
-          <div class="box">
-            <span class="tag fact">FACT</span>
-            <h5>BTC is volatile—but not “fake”</h5>
-            <ul>
-              <li>It’s speculative and risky, but it’s real market supply/demand.</li>
-              <li>Price swings are the cost of potential outsized returns.</li>
-            </ul>
-          </div>
-
-          <div class="box">
-            <span class="tag myth">MYTH</span>
-            <h5>“You must buy 1 whole BTC”</h5>
-            <ul>
-              <li>You can buy fractions (even $10 worth).</li>
-              <li>DCA is built for small, repeated buys.</li>
-            </ul>
-          </div>
-
-          <div class="box">
-            <span class="tag fact">FACT</span>
-            <h5>Small allocation can still matter</h5>
-            <ul>
-              <li>If BTC performs well, even 1–5% can move the needle.</li>
-              <li>If it performs badly, you cap the damage by sizing small.</li>
-            </ul>
-          </div>
-
-          <div class="box">
-            <span class="tag myth">MYTH</span>
-            <h5>“Timing must be perfect”</h5>
-            <ul>
-              <li>Most people lose money trying to time tops/bottoms.</li>
-              <li>Emotions are the biggest enemy.</li>
-            </ul>
-          </div>
-
-          <div class="box">
-            <span class="tag fact">FACT</span>
-            <h5>DCA reduces timing stress</h5>
-            <ul>
-              <li>You spread buys across time and ignore day-to-day noise.</li>
-              <li>Still risky—but often more realistic than “perfect timing”.</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- Added: 3 reasons to start today -->
-      <div class="card">
-        <div style="font-weight:1000;margin-bottom:10px;">3 reasons to start today (without going all-in)</div>
-
-        <div class="grid two">
-          <div class="box">
-            <div class="kpi">
-              <div class="ico">🧠</div>
-              <div>
-                <h4>Build conviction with small exposure</h4>
-                <p>Owning a small amount makes you pay attention and learn—without emotional overload.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="box">
-            <div class="kpi">
-              <div class="ico">⏳</div>
-              <div>
-                <h4>Time beats timing</h4>
-                <p>Starting DCA now means you don’t need to guess the “perfect” entry point.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="box">
-            <div class="kpi">
-              <div class="ico">🛡️</div>
-              <div>
-                <h4>Risk is controllable</h4>
-                <p>Position sizing + no leverage + long horizon = you can participate without blowing up.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="box">
-            <div class="kpi">
-              <div class="ico">📌</div>
-              <div>
-                <h4>Simple starter rule</h4>
-                <p>Pick 1–5% allocation, DCA monthly, rebalance if it grows too big.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div style="font-weight:1000;margin-bottom:10px;">How I’d persuade a friend (simple, responsible)</div>
-
-        <div class="donut-wrap">
-          <div class="donut" aria-label="Allocation donut infographic"></div>
-          <div class="donut-legend">
-            <div><b style="color:var(--green)">Start small (example)</b>: 1–5% of portfolio</div>
-            <div><b style="color:var(--primary)">Build conviction</b>: DCA monthly, ignore noise</div>
-            <div><b style="color:var(--red)">Avoid</b>: leverage + “all-in” mentality</div>
-            <div class="mini">This is a common “starter allocation” idea, not a rule.</div>
-          </div>
-        </div>
-
-        <div class="grid two" style="margin-top:12px;">
-          <div class="box">
-            <h5>Starter plan (low stress)</h5>
-            <ul>
-              <li>Pick a small % you won’t panic over.</li>
-              <li>DCA monthly for 12–24 months.</li>
-              <li>Hold for years, not weeks.</li>
-              <li>Rebalance if it grows too big.</li>
-            </ul>
-          </div>
-
-          <div class="box">
-            <h5>Rules that prevent regret</h5>
-            <ul>
-              <li>No leverage.</li>
-              <li>Don’t use emergency money.</li>
-              <li>Secure accounts (2FA) + backups.</li>
-              <li>Don’t react to daily headlines.</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Added: What if BTC goes to zero? -->
-        <div class="box" style="margin-top:12px;">
-          <span class="tag high">HARD QUESTION</span>
-          <h5>“What if BTC goes to zero?”</h5>
-          <ul>
-            <li>That’s why you <b>never</b> go all-in and <b>never</b> use emergency money.</li>
-            <li>Use a small allocation so the worst case is survivable.</li>
-            <li>If BTC wins, upside can be meaningful; if it fails, your downside is capped.</li>
-          </ul>
-        </div>
-
-        <div class="disclaimer">
-          <b>Note:</b> This is educational, not financial advice. BTC can be highly volatile.
-          If you can’t emotionally tolerate big drawdowns, reduce allocation or skip it.
-        </div>
-      </div>
-    </section>
+<main>
+<section class="hero on-dark" id="top" aria-labelledby="name">
+  <div class="hero-photo"><picture><source type="image/webp" srcset="images/cover-s.webp 560w, images/cover.webp 900w" sizes="(min-width:900px) 40vw, 130vw"><img src="images/cover-s.png" srcset="images/cover-s.png 560w, images/cover.png 900w" sizes="(min-width:900px) 40vw, 130vw" width="900" height="1240" alt="Yanaphat Pinijpichitkul in Siriraj student uniform" fetchpriority="high"></picture></div>
+  <p class="wordmark" aria-hidden="true"><span>Port</span><span>folio</span></p>
+  <div class="hero-body">
+    <h1 id="name">Yanaphat Pinijpichitkul</h1>
+    <p class="th" lang="th">ญาณภัทร พินิจพิชิตกุล</p>
+    <ul class="chips">
+      <li class="hot">OB/GYN</li>
+      <li>6th-year medical student, Siriraj</li>
+      <li>MD 2027</li>
+    </ul>
+    <a class="scroll-cue" href="#brief"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>At a glance</a>
   </div>
+</section>
 
-  <script>
-    // -------- Tabs --------
-    const tabCalc = document.getElementById('tabCalc');
-    const tabRisk = document.getElementById('tabRisk');
-    const panelCalc = document.getElementById('panelCalc');
-    const panelRisk = document.getElementById('panelRisk');
+<div class="dark on-dark" id="brief">
+  <div class="wrap grid">
+    <section class="brief glass" aria-labelledby="brief-h">
+      <h2 id="brief-h">At a glance</h2>
+      <div class="stats">
+        <div><b>4</b><span>research projects<br>2 as first author</span></div>
+        <div><b>10</b><span>SIOGC events<br>500+ attendees</span></div>
+        <div><b>3.77</b><span>GPAX<br>Medicine</span></div>
+      </div>
+      <dl class="facts">
+        <div><dt>OB/GYN</dt><dd>Electives at 4 Thai centres, incl. Kanchanaphisek Medical Center. Duke University exchange, April 2027</dd></div>
+        <div><dt>Research</dt><dd>First author, PPROM before 28 weeks (under peer review)</dd></div>
+        <div><dt>Education</dt><dd>MD Siriraj 2027, with MSc Biomedical Engineering (MAP-C) and Health Business Management (CMMU)</dd></div>
+        <div><dt>Award</dt><dd>Siriraj Internal Medicine clinical excellence and ethics award, 2025</dd></div>
+      </dl>
+      <div class="actions">
+        <a class="btn primary" data-full href="portfolio.pdf" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 00-2 2v14a2 2 0 002 2h12a2 2 0 002-2V9z"/><path d="M14 3v6h6"/></svg><span>Full portfolio (PDF)</span></a>
+        <a class="btn ghost" href="yanaphat.vcf">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>Save contact</a>
+      </div>
+    </section>
 
-    function setTab(which) {
-      const isCalc = which === 'calc';
-      tabCalc.classList.toggle('active', isCalc);
-      tabRisk.classList.toggle('active', !isCalc);
-      panelCalc.classList.toggle('active', isCalc);
-      panelRisk.classList.toggle('active', !isCalc);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-    tabCalc.addEventListener('click', () => setTab('calc'));
-    tabRisk.addEventListener('click', () => setTab('risk'));
+    <div>
+      <section class="reel-sec" aria-labelledby="reel-h">
+        <h2 id="reel-h">Highlights</h2>
+        <div class="rail" tabindex="0" aria-label="Highlights, scrolls sideways">
+          <a class="story" href="#leadership" style="--c:var(--leader)"><img src="images/ob-labor-xs.jpg" alt="" loading="lazy"><div class="t"><em>OB/GYN</em><b>Founded SIOGC</b><span>Hands-on OB/GYN skills for juniors</span></div></a>
+          <a class="story" href="#clinical" style="--c:var(--intl)"><img src="images/tu-team-xs.jpg" alt="" loading="lazy"><div class="t"><em>OB/GYN</em><b>4 OB/GYN electives</b><span>Siriraj, Thammasat, PSU, Kanchanaphisek</span></div></a>
+          <a class="story" href="#clinical" style="--c:var(--intl)"><img src="images/nuh-mentor-xs.jpg" alt="" loading="lazy" style="object-position:35% 50%"><div class="t"><em>Abroad</em><b>NUH Singapore</b><span>Clinical exchange, 2025</span></div></a>
+          <a class="story" href="#community" style="--c:var(--community)"><img src="images/sangkhla-xs.jpg" alt="" loading="lazy" style="object-position:30% 50%"><div class="t"><em>Field</em><b>Sangkhlaburi</b><span>Mobile medical unit, refugee camp</span></div></a>
+          <a class="story" href="#innovation" style="--c:var(--innov)"><img src="images/mdcu-xs.jpg" alt="" loading="lazy"><div class="t"><em>Startup</em><b>PodiPatch wins MDCU</b><span>Pitching Challenge 2025</span></div></a>
+          <a class="story" href="#awards" style="--c:#8a5a00"><img src="images/ipho-xs.jpg" alt="" loading="lazy"><div class="t"><em>Medal</em><b>IPhO Bronze</b><span>Tel Aviv, 2019</span></div></a>
+        </div>
+        <p class="rail-hint" aria-hidden="true">Swipe for more <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></p>
+      </section>
 
-    // -------- Spot price (Coinbase) --------
-    const priceEl = document.getElementById('price');
-    async function getSpotPrice() {
-      try {
-        const res = await fetch('https://api.coinbase.com/v2/prices/spot?currency=USD', { cache:'no-store' });
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        const data = await res.json();
-        const price = Number(data?.data?.amount);
-        if (!Number.isFinite(price)) throw new Error('Bad price');
-        priceEl.textContent = '$' + price.toLocaleString(undefined, { maximumFractionDigits: 0 });
-      } catch (e) {
-        priceEl.textContent = 'PRICE UNAVAILABLE';
-      }
-    }
+      <section class="journey" aria-labelledby="jr-h">
+        <h2 id="jr-h">Timeline</h2>
+        <div class="rail" tabindex="0" aria-label="Timeline by year, scrolls sideways">
+          <div class="step"><b>2017–19</b><p>Represented Thailand at IPhO, APhO and IAO</p></div>
+          <div class="step"><b>2021</b><p>Entered Siriraj through the Olympiad quota. Won UniHack</p></div>
+          <div class="step"><b>2023</b><p>IFMSA research exchange in Marseille. Co-founded the Global Health Club</p></div>
+          <div class="step"><b>2024</b><p>Founded SIOGC. Joined Nirvamed</p></div>
+          <div class="step"><b>2025</b><p>Clinical exchange at NUH Singapore. Oral presentation at Siriraj Research Day</p></div>
+          <div class="step"><b>2026</b><p>OB/GYN electives at Siriraj, Thammasat, Songklanagarind and Kanchanaphisek</p></div>
+          <div class="step"><b>2027</b><p>OB/GYN exchange at Duke University. MD graduation</p></div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
 
-    // -------- BTC line graph (CoinGecko) --------
-    const rangeEl = document.getElementById('range');
-    const chartStatus = document.getElementById('chartStatus');
-    const ctx = document.getElementById('btcChart');
-    let chart;
+<section class="statement" id="statement" aria-labelledby="h-st">
+  <div class="wrap">
+    <div>
+      <h2 class="h-sec" id="h-st">Why OB/GYN</h2>
+      <figure class="ph st-photo" data-zoom="images/ob-station.jpg" data-pos="50% 62%" data-cap="At the SIOGC normal labor station, 2025"><img src="images/ob-station-s.jpg" srcset="images/ob-station-xs.jpg 367w, images/ob-station-s.jpg 600w, images/ob-station.jpg 1167w" sizes="(min-width:900px) 420px, 100vw" width="600" height="720" alt="" loading="lazy" decoding="async" style="object-position:50% 62%"><figcaption>At the SIOGC normal labor station, 2025</figcaption></figure>
+      <blockquote class="quote" lang="th">
+        <p>งานตรวจและรักษาคนไข้คือสิ่งที่ผมอยากทำไปตลอดชีวิต</p>
+        <footer lang="en">From my statement of purpose</footer>
+      </blockquote>
+    </div>
+    <div class="essay" lang="th">
+      <p>ผมจำได้ว่าตอนเด็กๆ คุณพ่อซึ่งเป็นแพทย์นรีเวชผ่าตัดผ่านกล้อง มักพาผมไปสังเกตการณ์เคสทั้งใน OR, OPD และห้องฉุกเฉิน โดยเฉพาะเคสฉุกเฉินอย่าง Ruptured ectopic pregnancy หรือ Placental abruption ที่ทั้งตื่นเต้นและท้าทายในเวลาเดียวกัน ภาพที่ติดตาผมไม่ใช่แค่การรักษาคนไข้ แต่คือความเป็นเหตุเป็นผลของกลไกร่างกาย ตั้งแต่ Physiology ของฮอร์โมนไปจนถึง Mechanism of labor ที่มีความเป็น Physics สูง สิ่งเหล่านี้ทำให้ผมหลงใหลในห้องผ่าตัดและมั่นใจตั้งแต่เนิ่นๆ ว่าสูติ-นรีเวชคือสาขาที่จะเป็นชีวิตของผมต่อจากนี้</p>
+      <details class="more"><summary lang="en">Read more</summary>
+        <p>แต่ยิ่งเรียนคลินิกมากขึ้น ผมยิ่งเห็นช่องว่างหนึ่งชัดเจนขึ้นเรื่อยๆ คือประเทศไทยมีศักยภาพสูงในการนำเทคโนโลยีทางการแพทย์มาใช้ ผมเองมีโอกาสได้เห็นนวัตกรรมหลายอย่างด้วยตาตัวเอง ทั้งเทคนิคผ่าตัดอย่าง V-NOTES การใช้ Indocyanine Green ระบุตำแหน่งท่อไตเพื่อลดภาวะแทรกซ้อน และแนวคิดอุปกรณ์ตรวจคัดกรองมะเร็งปากมดลูกแบบพกพาที่ผสาน AI แม้เทคโนโลยีเหล่านี้จะไม่ใช่เรื่องใหม่ในระดับโลก แต่อัตรา Adoption จริงในระบบสูติ-นรีเวชของไทยยังต่ำกว่าที่ควรจะเป็นมาก แน่นอนว่าช่องว่างนี้ไม่ได้มีสาเหตุจากการขาดความรู้เพียงอย่างเดียว แต่เกิดจากปัจจัยที่ซับซ้อนกว่านั้นมาก ทั้งงบประมาณ ระเบียบการจัดซื้อ และกำลังคนที่จำกัด สิ่งที่แพทย์รุ่นใหม่คนหนึ่งอย่างผมพอทำได้ อาจไม่ใช่การแก้ปัญหาทั้งระบบในคราวเดียว แต่คือการเป็นฟันเฟืองเล็กๆ ที่ช่วยผลักดันแนวคิดและทดลองสิ่งใหม่ในขอบเขตที่ทำได้จริง ควบคู่ไปกับการเรียนรู้จากอาจารย์และรุ่นพี่ที่มีประสบการณ์ในระบบมากกว่าผมมาก</p>
+        <p>แม้จะมีพื้นฐานด้านเทคโนโลยีและนวัตกรรม แต่หัวใจสำคัญที่สุดของผมยังคงเป็นงานคลินิก ผมยังได้มีโอกาสเห็นคุณพ่อตรวจติดตามคนไข้จนเกิดความผูกพัน มีคนไข้แวะเวียนมาเยี่ยมด้วยความขอบคุณ ผมจึงยิ่งมั่นใจว่างานตรวจและรักษาคนไข้คือสิ่งที่ผมอยากทำไปตลอดชีวิต นวัตกรรมสำหรับผมจึงเป็นเครื่องมือที่ต่อยอดจากงานคลินิก ไม่ใช่สิ่งที่มาแทนที่มัน</p>
+      </details>
+    </div>
+  </div>
+</section>
 
-    const fmtUSD2 = (n) => '$' + Number(n).toLocaleString(undefined, { maximumFractionDigits: 2 });
+<section class="index" id="work" aria-labelledby="work-h">
+  <div class="wrap">
+    <h2 class="h-sec" id="work-h">Work</h2>
+    <nav class="tiles" aria-label="Work chapters">
+      <a class="tile" href="#clinical" style="--c:var(--intl)"><img src="images/nuh-or-xs.jpg" alt="" loading="lazy"><em>01</em><div class="t"><b>Clinical &amp; International</b><span>4 OB/GYN electives</span></div></a>
+      <a class="tile" href="#research" style="--c:var(--research)"><img src="images/marseille-xs.jpg" alt="" loading="lazy" style="object-position:70% 50%"><em>02</em><div class="t"><b>Research</b><span>4 projects</span></div></a>
+      <a class="tile" href="#leadership" style="--c:var(--leader)"><img src="images/ob-pap-xs.jpg" alt="" loading="lazy"><em>03</em><div class="t"><b>Leadership</b><span>Founder, SIOGC</span></div></a>
+      <a class="tile" href="#innovation" style="--c:var(--innov)"><img src="images/mgc-xs.jpg" alt="" loading="lazy"><em>04</em><div class="t"><b>Innovation</b><span>3 startups</span></div></a>
+      <a class="tile" href="#global" style="--c:var(--global)"><img src="images/pmac25-b-xs.jpg" alt="" loading="lazy" style="object-position:50% 30%"><em>05</em><div class="t"><b>Global Health</b><span>PMAC, 2 years</span></div></a>
+      <a class="tile" href="#community" style="--c:var(--community)"><img src="images/issara-me-xs.jpg" alt="" loading="lazy"><em>06</em><div class="t"><b>Community</b><span>Sangkhlaburi, Khlong Toei</span></div></a>
+    </nav>
+  </div>
+</section>
 
-    function ensureChart(labels, values) {
-      if (chart) {
-        chart.data.labels = labels;
-        chart.data.datasets[0].data = values;
-        chart.update();
-        return;
-      }
-      chart = new Chart(ctx, {
-        type: 'line',
-        data: { labels, datasets: [{ label: 'BTC (USD)', data: values, tension: 0.25, pointRadius: 0, borderWidth: 2 }] },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: { legend: { display: false } },
-          scales: {
-            x: { ticks: { maxTicksLimit: 6 } },
-            y: { ticks: { callback: (v) => '$' + Number(v).toLocaleString() } }
-          }
-        }
-      });
-    }
+<!-- 01 CLINICAL -->
+<section class="chap" id="clinical" style="--c:var(--intl)" aria-labelledby="h-clin">
+  <div class="wrap">
+    <div class="cover" data-zoom="images/psu-or.jpg" data-pos="50% 35%" data-cap="OB/GYN elective, Prince of Songkla University, 2026">
+      <img src="images/psu-or-s.jpg" srcset="images/psu-or-xs.jpg 330w, images/psu-or-s.jpg 540w, images/psu-or.jpg 1050w" sizes="(min-width:900px) 55vw, 100vw" width="540" height="720" alt="" loading="lazy" decoding="async" style="object-position:50% 35%">
+      <span class="num">01</span>
+      <div class="head"><h2 id="h-clin">Clinical &amp; International</h2><p>OB/GYN electives at 4 Thai centres, plus competitive exchanges abroad</p></div>
+    </div>
+    <div class="strip">
+      <figure class="ph" data-zoom="images/psu-lap.jpg" data-cap="Laparoscopic gynecologic surgery, Prince of Songkla University, 2026"><img src="images/psu-lap-s.jpg" srcset="images/psu-lap-xs.jpg 330w, images/psu-lap-s.jpg 540w, images/psu-lap.jpg 1050w" sizes="(min-width:900px) 200px, 45vw" width="540" height="720" alt="" loading="lazy" decoding="async"><figcaption>Laparoscopic gynecologic surgery, Prince of Songkla University, 2026</figcaption></figure>
+      <figure class="ph w" data-zoom="images/tu.jpg" data-cap="Thammasat Fertility and Assisted Reproductive Technology Center, 2026"><img src="images/tu-s.jpg" srcset="images/tu-xs.jpg 412w, images/tu-s.jpg 675w, images/tu.jpg 1312w" sizes="(min-width:900px) 300px, 80vw" width="675" height="720" alt="" loading="lazy" decoding="async"><figcaption>Thammasat Fertility and Assisted Reproductive Technology Center, 2026</figcaption></figure>
+      <figure class="ph" data-zoom="images/psu.jpg" data-cap="Songklanagarind Hospital, OB/GYN elective, 2026"><img src="images/psu-s.jpg" srcset="images/psu-xs.jpg 330w, images/psu-s.jpg 540w, images/psu.jpg 1050w" sizes="(min-width:900px) 200px, 45vw" width="540" height="720" alt="" loading="lazy" decoding="async"><figcaption>Songklanagarind Hospital, OB/GYN elective, 2026</figcaption></figure>
+      <figure class="ph" data-zoom="images/nuh-or.jpg" data-cap="Operating theatre team, NUH Singapore, 2025"><img src="images/nuh-or-s.jpg" srcset="images/nuh-or-xs.jpg 330w, images/nuh-or-s.jpg 540w, images/nuh-or.jpg 1050w" sizes="(min-width:900px) 200px, 45vw" width="540" height="720" alt="" loading="lazy" decoding="async"><figcaption>Operating theatre team, NUH Singapore, 2025</figcaption></figure>
+      <figure class="ph w" data-zoom="images/nuh-mentor.jpg" data-cap="With my supervisor, NUH Singapore, 2025"><img src="images/nuh-mentor-s.jpg" srcset="images/nuh-mentor-xs.jpg 440w, images/nuh-mentor-s.jpg 720w, images/nuh-mentor.jpg 1400w" sizes="(min-width:900px) 300px, 80vw" width="720" height="540" alt="" loading="lazy" decoding="async"><figcaption>With my supervisor, NUH Singapore, 2025</figcaption></figure>
+      <figure class="ph" data-zoom="images/tu-team.jpg" data-cap="With the OB/GYN team, Thammasat elective, 2026"><img src="images/tu-team-s.jpg" srcset="images/tu-team-xs.jpg 330w, images/tu-team-s.jpg 540w, images/tu-team.jpg 1050w" sizes="(min-width:900px) 200px, 45vw" width="540" height="720" alt="" loading="lazy" decoding="async"><figcaption>With the OB/GYN team, Thammasat elective, 2026</figcaption></figure>
+      <figure class="ph" data-zoom="images/tsrm.jpg" data-cap="33rd TSRM Congress, 2026"><img src="images/tsrm-s.jpg" srcset="images/tsrm-xs.jpg 330w, images/tsrm-s.jpg 540w, images/tsrm.jpg 1050w" sizes="(min-width:900px) 200px, 45vw" width="540" height="720" alt="" loading="lazy" decoding="async"><figcaption>33rd TSRM Congress, 2026</figcaption></figure>
+    </div>
+    <div class="side">
+      <div class="overview">
+        <dl class="years">
+          <div><dt>2023</dt><dd>IFMSA research exchange, Marseille</dd></div>
+          <div><dt>2025</dt><dd>Clinical exchange, NUH Singapore</dd></div>
+          <div><dt>2026</dt><dd>OB/GYN electives at 4 Thai centres</dd></div>
+          <div><dt>2027</dt><dd>OB/GYN clinical exchange, Duke University</dd></div>
+        </dl>
+        <div class="nums"><div><b>1/12</b><span>selected, IFMSA</span></div><div><b>4/15</b><span>selected, NUH</span></div><div><b>4</b><span>OB/GYN electives</span></div></div>
+      </div>
+      <ul class="items">
+        <li><h3>OB/GYN elective, Kanchanaphisek Medical Center</h3><p>18–30 October 2026</p><div class="tags"><span class="tag ob">OB/GYN</span><span class="tag">Upcoming</span></div></li>
+        <li><h3>OB/GYN electives at Siriraj, Thammasat and Prince of Songkla University</h3><p>March to April 2026</p><div class="tags"><span class="tag ob">OB/GYN</span></div></li>
+        <li><h3>Duke University OB/GYN clinical exchange</h3><p>Selected to represent Siriraj, April 2027</p><div class="tags"><span class="tag ob">OB/GYN</span><span class="tag">Upcoming</span></div></li>
+        <li><h3>Clinical exchange, NUH Singapore</h3><p>Orthopaedic and plastic surgery, 2025</p></li>
+        <li><h3>33rd TSRM Congress and RTCOG seminars</h3><p>Infertility, cesarean scar defect, reproductive medicine</p><div class="tags"><span class="tag ob">OB/GYN</span></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
 
-    async function loadHistory(days) {
-      chartStatus.textContent = 'Loading chart...';
-      try {
-        const url = `https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=${encodeURIComponent(days)}`;
-        const res = await fetch(url, { cache:'no-store' });
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        const data = await res.json();
-        const prices = Array.isArray(data?.prices) ? data.prices : [];
-        if (!prices.length) throw new Error('No data');
+<!-- 02 RESEARCH -->
+<section class="chap" id="research" style="--c:var(--research)" aria-labelledby="h-research">
+  <div class="wrap">
+    <div class="cover" data-zoom="images/marseille.jpg" data-pos="88% 35%" data-cap="Lab team, Aix-Marseille Université, 2023">
+      <img src="images/marseille-s.jpg" srcset="images/marseille-xs.jpg 440w, images/marseille-s.jpg 720w, images/marseille.jpg 1400w" sizes="(min-width:900px) 55vw, 100vw" width="720" height="540" alt="" loading="lazy" decoding="async" style="object-position:88% 35%">
+      <span class="num">02</span>
+      <div class="head"><h2 id="h-research">Research</h2><p>4 research projects, 3 at Siriraj and 1 in Marseille, plus an MSc thesis</p></div>
+    </div>
+    <div class="strip">
+      <figure class="ph" data-zoom="images/resday.jpg" data-cap="Presenting my ALBI score study, Siriraj Research Day 2025"><img src="images/resday-s.jpg" srcset="images/resday-xs.jpg 247w, images/resday-s.jpg 405w, images/resday.jpg 787w" sizes="(min-width:900px) 200px, 45vw" width="405" height="720" alt="" loading="lazy" decoding="async"><figcaption>Presenting my ALBI score study, Siriraj Research Day 2025</figcaption></figure>
+      <figure class="ph w" data-zoom="images/marseille2.jpg" data-cap="With the lab team I worked in, Aix-Marseille Université, 2023"><img src="images/marseille2-s.jpg" srcset="images/marseille2-xs.jpg 440w, images/marseille2-s.jpg 720w, images/marseille2.jpg 1400w" sizes="(min-width:900px) 300px, 80vw" width="720" height="540" alt="" loading="lazy" decoding="async"><figcaption>With the lab team I worked in, Aix-Marseille Université, 2023</figcaption></figure>
+    </div>
+    <div class="side">
+      <div class="overview">
+        <dl class="years">
+          <div><dt>2023</dt><dd>Research assistant, Aix-Marseille Université</dd></div>
+          <div><dt>2025</dt><dd>Oral presentation, Siriraj Research Day</dd></div>
+          <div><dt>2026</dt><dd>PPROM paper in peer review. LNG-IUS paper with the editor</dd></div>
+        </dl>
+        <div class="nums"><div><b>4</b><span>projects</span></div><div><b>2</b><span>first author</span></div><div><b>2</b><span>in OB/GYN</span></div></div>
+      </div>
+      <ul class="items">
+        <li><h3>Maternal and neonatal outcomes by gestational age at PPROM before 28 weeks</h3><p>Division of Maternal-Fetal Medicine, Siriraj</p><div class="tags"><span class="tag ob">OB/GYN</span><span class="tag">First author, under peer review</span></div></li>
+        <li><h3>Long-term continuation and predictors of LNG-IUS expulsion</h3><p>Gynecologic Endocrinology Unit, Siriraj, n = 261</p><div class="tags"><span class="tag ob">OB/GYN</span><span class="tag">Co-author, under editor review</span></div></li>
+        <li><h3>ALBI score as a predictor of HCC in non-cirrhotic hepatitis B carriers</h3><p>GI &amp; Liver Center, Siriraj</p><div class="tags"><span class="tag">First author, oral presentation 2025</span></div></li>
+        <li><h3><i>Coxiella burnetii</i> infection and placental immunity</h3><p>Aix-Marseille Université, France. Cell culture, PCR and EM preparation</p><div class="tags"><span class="tag">Research assistant, 2023</span></div></li>
+        <li><h3>Business model for holistic rehabilitation</h3><p>MSc thesis, CMMU</p><div class="tags"><span class="tag">Ongoing</span></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
 
-        const labels = prices.map(p => {
-          const d = new Date(p[0]);
-          return (d.getMonth() + 1) + '/' + d.getDate();
-        });
-        const values = prices.map(p => Number(p[1]));
+<!-- 03 LEADERSHIP -->
+<section class="chap" id="leadership" style="--c:var(--leader)" aria-labelledby="h-leader">
+  <div class="wrap">
+    <div class="cover" data-zoom="images/ob-labor.jpg" data-pos="50% 55%" data-cap="Normal labor station I designed and ran, Siriraj Open House 2025">
+      <img src="images/ob-labor-s.jpg" srcset="images/ob-labor-xs.jpg 330w, images/ob-labor-s.jpg 540w, images/ob-labor.jpg 1050w" sizes="(min-width:900px) 55vw, 100vw" width="540" height="720" alt="" loading="lazy" decoding="async" style="object-position:50% 55%">
+      <span class="num">03</span>
+      <div class="head"><h2 id="h-leader">Leadership</h2><p>President &amp; Founder, Siriraj Obstetrics and Gynecology Club (SIOGC)</p></div>
+    </div>
+    <div class="strip">
+      <figure class="ph w" data-zoom="images/firstmeet.jpg" data-cap="SIOGC First Meet, 2025"><img src="images/firstmeet-s.jpg" srcset="images/firstmeet-xs.jpg 440w, images/firstmeet-s.jpg 720w, images/firstmeet.jpg 1400w" sizes="(min-width:900px) 300px, 80vw" width="720" height="540" alt="" loading="lazy" decoding="async"><figcaption>SIOGC First Meet, 2025</figcaption></figure>
+      <figure class="ph" data-zoom="images/firstmeet-talk.jpg" data-cap="Opening the First Meet as club president"><img src="images/firstmeet-talk-s.jpg" srcset="images/firstmeet-talk-xs.jpg 330w, images/firstmeet-talk-s.jpg 540w, images/firstmeet-talk.jpg 1051w" sizes="(min-width:900px) 200px, 45vw" width="540" height="720" alt="" loading="lazy" decoding="async"><figcaption>Opening the First Meet as club president</figcaption></figure>
+      <figure class="ph" data-zoom="images/ob-pap.jpg" data-cap="Pap smear station I designed and ran, Siriraj Open House 2025"><img src="images/ob-pap-s.jpg" srcset="images/ob-pap-xs.jpg 330w, images/ob-pap-s.jpg 540w, images/ob-pap.jpg 1050w" sizes="(min-width:900px) 200px, 45vw" width="540" height="720" alt="" loading="lazy" decoding="async"><figcaption>Pap smear station I designed and ran, Siriraj Open House 2025</figcaption></figure>
+      <figure class="ph" data-zoom="images/hpv-talk.jpg" data-cap="HPV self-test briefing, 2025"><img src="images/hpv-talk-s.jpg" srcset="images/hpv-talk-xs.jpg 330w, images/hpv-talk-s.jpg 540w, images/hpv-talk.jpg 1050w" sizes="(min-width:900px) 200px, 45vw" width="540" height="720" alt="" loading="lazy" decoding="async"><figcaption>HPV self-test briefing, 2025</figcaption></figure>
+      <figure class="ph" data-zoom="images/hpv.jpg" data-cap="Handing out HPV self-test kits, 2025"><img src="images/hpv-s.jpg" srcset="images/hpv-xs.jpg 330w, images/hpv-s.jpg 540w, images/hpv.jpg 1050w" sizes="(min-width:900px) 200px, 45vw" width="540" height="720" alt="" loading="lazy" decoding="async"><figcaption>Handing out HPV self-test kits, 2025</figcaption></figure>
+      <figure class="ph w" data-zoom="images/movienight.jpg" data-cap="Resident Playbook Movie Night, 2025"><img src="images/movienight-s.jpg" srcset="images/movienight-xs.jpg 440w, images/movienight-s.jpg 720w, images/movienight.jpg 1400w" sizes="(min-width:900px) 300px, 80vw" width="720" height="540" alt="" loading="lazy" decoding="async"><figcaption>Resident Playbook Movie Night, 2025</figcaption></figure>
+      <figure class="ph" data-zoom="images/ob-leopold.jpg" data-cap="Leopold maneuver station I designed and ran, Siriraj Open House 2025"><img src="images/ob-leopold-s.jpg" srcset="images/ob-leopold-xs.jpg 330w, images/ob-leopold-s.jpg 540w, images/ob-leopold.jpg 1050w" sizes="(min-width:900px) 200px, 45vw" width="540" height="720" alt="" loading="lazy" decoding="async"><figcaption>Leopold maneuver station I designed and ran, Siriraj Open House 2025</figcaption></figure>
+    </div>
+    <div class="side">
+      <div class="overview">
+        <dl class="years">
+          <div><dt>2024</dt><dd>Founded the club with an 8-division committee</dd></div>
+          <div><dt>2025</dt><dd>Ran 10 events, from skills workshops to community screening</dd></div>
+        </dl>
+        <div class="nums"><div><b>10</b><span>events</span></div><div><b>500+</b><span>attendees</span></div></div>
+      </div>
+      <ul class="items">
+        <li><h3>SIOGC First Meet</h3><p>Launch event. OB/GYN residents talked about how they chose the specialty</p><div class="tags"><span class="tag ob">OB/GYN</span></div></li>
+        <li><h3>Clinical skills booths, Siriraj Open House</h3><p>Normal labor, IUD insertion, PV and Pap smear on simulators</p><div class="tags"><span class="tag ob">OB/GYN</span></div></li>
+        <li><h3>HPV Self-Test Community Project</h3><p>With the Ministry of Social Development and Human Security</p><div class="tags"><span class="tag ob">OB/GYN</span></div></li>
+        <li><h3>Resident Playbook Movie Night</h3><p>Case-based review of common OB/GYN topics before exams</p><div class="tags"><span class="tag ob">OB/GYN</span></div></li>
+        <li><h3>OB/GYN Student Research Club Unit</h3><p>Student research unit within SIOGC</p><div class="tags"><span class="tag">Founder</span></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
 
-        ensureChart(labels, values);
-        chartStatus.textContent = `Latest in range: ${fmtUSD2(values[values.length - 1])}`;
-      } catch (e) {
-        chartStatus.textContent = 'Chart unavailable (network/CORS). Reload or try later.';
-      }
-    }
+<!-- 04 INNOVATION -->
+<section class="chap" id="innovation" style="--c:var(--innov)" aria-labelledby="h-innov">
+  <div class="wrap">
+    <div class="cover" data-zoom="images/mgc.jpg" data-pos="50% 40%" data-cap="PodiPatch booth, NUS Medical Grand Challenge 2024">
+      <img src="images/mgc-s.jpg" srcset="images/mgc-xs.jpg 330w, images/mgc-s.jpg 540w, images/mgc.jpg 1050w" sizes="(min-width:900px) 55vw, 100vw" width="540" height="720" alt="" loading="lazy" decoding="async" style="object-position:50% 40%">
+      <span class="num">04</span>
+      <div class="head"><h2 id="h-innov">Innovation</h2><p>Co-founder of PodiPatch, founder of UNITE and Trawell</p></div>
+    </div>
+    <div class="strip">
+      <figure class="ph" data-zoom="images/mdcu.jpg" data-cap="PodiPatch wins the MDCU Pitching Challenge, 2025"><img src="images/mdcu-s.jpg" srcset="images/mdcu-xs.jpg 330w, images/mdcu-s.jpg 540w, images/mdcu.jpg 1050w" sizes="(min-width:900px) 200px, 45vw" width="540" height="720" alt="" loading="lazy" decoding="async"><figcaption>PodiPatch wins the MDCU Pitching Challenge, 2025</figcaption></figure>
+      <figure class="ph" data-zoom="images/mgc-final.jpg" data-cap="Grand Finale, NUS Medical Grand Challenge 2024"><img src="images/mgc-final-s.jpg" srcset="images/mgc-final-xs.jpg 330w, images/mgc-final-s.jpg 540w, images/mgc-final.jpg 1050w" sizes="(min-width:900px) 200px, 45vw" width="540" height="720" alt="" loading="lazy" decoding="async"><figcaption>Grand Finale, NUS Medical Grand Challenge 2024</figcaption></figure>
+      <figure class="ph w" data-zoom="images/medtech.jpg" data-cap="Road to MedTech Career Path in Healthcare, 2024"><img src="images/medtech-s.jpg" srcset="images/medtech-xs.jpg 440w, images/medtech-s.jpg 720w, images/medtech.jpg 1400w" sizes="(min-width:900px) 300px, 80vw" width="720" height="540" alt="" loading="lazy" decoding="async"><figcaption>Road to MedTech Career Path in Healthcare, 2024</figcaption></figure>
+      <figure class="ph" data-zoom="images/medtech-panel.jpg" data-cap="Panel discussion, Road to MedTech, 2024"><img src="images/medtech-panel-s.jpg" srcset="images/medtech-panel-xs.jpg 330w, images/medtech-panel-s.jpg 540w, images/medtech-panel.jpg 1050w" sizes="(min-width:900px) 200px, 45vw" width="540" height="720" alt="" loading="lazy" decoding="async"><figcaption>Panel discussion, Road to MedTech, 2024</figcaption></figure>
+    </div>
+    <div class="side">
+      <div class="overview">
+        <dl class="years">
+          <div><dt>2020</dt><dd>Founded UNITE. Passed the 42 Bangkok Piscine</dd></div>
+          <div><dt>2024</dt><dd>PodiPatch, Grand Finalist at NUS. Joined Nirvamed</dd></div>
+          <div><dt>2025</dt><dd>PodiPatch wins the MDCU Pitching Challenge</dd></div>
+        </dl>
+        <div class="nums"><div><b>3</b><span>startups</span></div><div><b>2</b><span>wins</span></div><div><b>2</b><span>grand finals</span></div></div>
+      </div>
+      <ul class="items">
+        <li><h3>PodiPatch</h3><p>Microneedle patch that senses inflammation and delivers drugs to diabetic foot ulcers</p><div class="tags"><span class="tag">Co-Founder &amp; Team Lead</span></div></li>
+        <li><h3>Nirvamed</h3><p>Catheter that captures contrast media during cardiac procedures. Worked on fundraising decks and patent experiments</p><div class="tags"><span class="tag">Business &amp; Product Design Intern</span></div></li>
+        <li><h3>UNITE</h3><p>AI study platform for medical students. Won UniHack 2021</p><div class="tags"><span class="tag">Founder, full-stack developer</span></div></li>
+        <li><h3>Trawell</h3><p>Health-travel platform. Top 5 at Mahidol, Startup Thailand League. NIA grant, 25,000 THB</p><div class="tags"><span class="tag">Founder &amp; CEO</span></div></li>
+        <li><h3>CU Case Discovery 2022</h3><p>Grand Finalist, top 20 of 200+ teams</p></li>
+      </ul>
+    </div>
+  </div>
+</section>
 
-    rangeEl.addEventListener('change', () => loadHistory(rangeEl.value));
+<!-- 05 GLOBAL -->
+<section class="chap" id="global" style="--c:var(--global)" aria-labelledby="h-global">
+  <div class="wrap">
+    <div class="cover" data-zoom="images/pmac25-b.jpg" data-pos="50% 30%" data-cap="PMAC 2025, Bangkok">
+      <img src="images/pmac25-b-s.jpg" srcset="images/pmac25-b-xs.jpg 330w, images/pmac25-b-s.jpg 540w, images/pmac25-b.jpg 1050w" sizes="(min-width:900px) 55vw, 100vw" width="540" height="720" alt="" loading="lazy" decoding="async" style="object-position:50% 30%">
+      <span class="num">05</span>
+      <div class="head"><h2 id="h-global">Global Health</h2><p>VP &amp; Co-Founder, Siriraj Global Health Club</p></div>
+    </div>
+    <div class="strip">
+      <figure class="ph w" data-zoom="images/pmac26-team.jpg" data-cap="With faculty, PMAC 2026"><img src="images/pmac26-team-s.jpg" srcset="images/pmac26-team-xs.jpg 440w, images/pmac26-team-s.jpg 720w, images/pmac26-team.jpg 1400w" sizes="(min-width:900px) 300px, 80vw" width="720" height="540" alt="" loading="lazy" decoding="async"><figcaption>With faculty, PMAC 2026</figcaption></figure>
+      <figure class="ph" data-zoom="images/pmac26.jpg" data-pos="50% 75%" data-cap="PMAC 2026, Bangkok"><img src="images/pmac26-s.jpg" srcset="images/pmac26-xs.jpg 375w, images/pmac26-s.jpg 614w, images/pmac26.jpg 1193w" sizes="(min-width:900px) 200px, 45vw" width="614" height="720" alt="" loading="lazy" decoding="async" style="object-position:50% 75%"><figcaption>PMAC 2026, Bangkok</figcaption></figure>
+      <figure class="ph w" data-zoom="images/pmac25.jpg" data-cap="PMAC 2025"><img src="images/pmac25-s.jpg" srcset="images/pmac25-xs.jpg 440w, images/pmac25-s.jpg 720w, images/pmac25.jpg 1400w" sizes="(min-width:900px) 300px, 80vw" width="720" height="540" alt="" loading="lazy" decoding="async"><figcaption>PMAC 2025</figcaption></figure>
+      <figure class="ph w" data-zoom="images/phichit.jpg" data-cap="Public health elective, Phichit, 2025"><img src="images/phichit-s.jpg" srcset="images/phichit-xs.jpg 440w, images/phichit-s.jpg 720w, images/phichit.jpg 1280w" sizes="(min-width:900px) 300px, 80vw" width="720" height="540" alt="" loading="lazy" decoding="async"><figcaption>Public health elective, Phichit, 2025</figcaption></figure>
+      <figure class="ph w" data-zoom="images/phichit-home.jpg" data-cap="Home visit, Phichit, 2025"><img src="images/phichit-home-s.jpg" srcset="images/phichit-home-xs.jpg 440w, images/phichit-home-s.jpg 720w, images/phichit-home.jpg 1400w" sizes="(min-width:900px) 300px, 80vw" width="720" height="480" alt="" loading="lazy" decoding="async"><figcaption>Home visit, Phichit, 2025</figcaption></figure>
+    </div>
+    <div class="side">
+      <div class="overview">
+        <dl class="years">
+          <div><dt>2023</dt><dd>Co-founded the Global Health Club</dd></div>
+          <div><dt>2025</dt><dd>Vice president, PMAC Case Competition (teams from 6 countries). Public health elective in Phichit</dd></div>
+          <div><dt>2026</dt><dd>Vice president, PMAC Case Competition, second year</dd></div>
+        </dl>
+        <div class="nums"><div><b>2</b><span>years running PMAC</span></div><div><b>6</b><span>countries competing</span></div></div>
+      </div>
+      <ul class="items">
+        <li><h3>PMAC Global Health Case Competition</h3><p>Vice president for 2 years. Wrote the cases and the judging system</p></li>
+        <li><h3>Public Health Research Internship, NUS</h3><p>Stakeholder analysis of HPV vaccination in Laos, with Assoc. Prof. Kiesha Prem, Saw Swee Hock School of Public Health</p><div class="tags"><span class="tag">Women's health</span></div></li>
+        <li><h3>Global Health Case Competition Unit</h3><p>Set up after competing at IPGHCC, University of Melbourne, to train future Mahidol teams</p><div class="tags"><span class="tag">Founder</span></div></li>
+        <li><h3>Public health elective, Phichit</h3><p>2 weeks with the Provincial Chief Medical Officer. 8 home visits in 3 communities</p></li>
+      </ul>
+    </div>
+  </div>
+</section>
 
-    // -------- DCA calculator --------
-    const monthlyEl = document.getElementById('monthly');
-    const yearsEl = document.getElementById('years');
-    const futureEl = document.getElementById('future-val');
-    const investedTextEl = document.getElementById('invested-text');
-    const barInvested = document.getElementById('bar-invested');
-    const barProfit = document.getElementById('bar-profit');
-    const calcBtn = document.getElementById('calcBtn');
+<!-- 06 COMMUNITY -->
+<section class="chap" id="community" style="--c:var(--community)" aria-labelledby="h-comm">
+  <div class="wrap">
+    <div class="cover" data-zoom="images/sangkhla-hosp.jpg" data-pos="50% 35%" data-cap="Sangkhlaburi Hospital, Kanchanaburi">
+      <img src="images/sangkhla-hosp-s.jpg" srcset="images/sangkhla-hosp-xs.jpg 440w, images/sangkhla-hosp-s.jpg 720w, images/sangkhla-hosp.jpg 1400w" sizes="(min-width:900px) 55vw, 100vw" width="720" height="540" alt="" loading="lazy" decoding="async" style="object-position:50% 35%">
+      <span class="num">06</span>
+      <div class="head"><h2 id="h-comm">Community</h2><p>Fieldwork in Sangkhlaburi and Khlong Toei</p></div>
+    </div>
+    <div class="strip">
+      <figure class="ph w" data-zoom="images/sangkhla-team.jpg" data-cap="Mobile medical unit team, Sangkhlaburi"><img src="images/sangkhla-team-s.jpg" srcset="images/sangkhla-team-xs.jpg 440w, images/sangkhla-team-s.jpg 720w, images/sangkhla-team.jpg 1400w" sizes="(min-width:900px) 300px, 80vw" width="720" height="540" alt="" loading="lazy" decoding="async"><figcaption>Mobile medical unit team, Sangkhlaburi</figcaption></figure>
+      <figure class="ph w" data-zoom="images/sangkhla-irc.jpg" data-cap="IRC health facility, Ban Don Yang"><img src="images/sangkhla-irc-s.jpg" srcset="images/sangkhla-irc-xs.jpg 440w, images/sangkhla-irc-s.jpg 720w, images/sangkhla-irc.jpg 1400w" sizes="(min-width:900px) 300px, 80vw" width="720" height="540" alt="" loading="lazy" decoding="async"><figcaption>IRC health facility, Ban Don Yang</figcaption></figure>
+      <figure class="ph" data-zoom="images/issara.jpg" data-cap="Hypertension screening, Issara Project, Khlong Toei"><img src="images/issara-s.jpg" srcset="images/issara-xs.jpg 330w, images/issara-s.jpg 540w, images/issara.jpg 1050w" sizes="(min-width:900px) 200px, 45vw" width="540" height="720" alt="" loading="lazy" decoding="async"><figcaption>Hypertension screening, Issara Project, Khlong Toei</figcaption></figure>
+      <figure class="ph" data-zoom="images/issara-me.jpg" data-cap="Issara Project, Khlong Toei"><img src="images/issara-me-s.jpg" srcset="images/issara-me-xs.jpg 330w, images/issara-me-s.jpg 540w, images/issara-me.jpg 1050w" sizes="(min-width:900px) 200px, 45vw" width="540" height="720" alt="" loading="lazy" decoding="async"><figcaption>Issara Project, Khlong Toei</figcaption></figure>
+      <figure class="ph w" data-zoom="images/issara-team.jpg" data-cap="Issara Project team, Khlong Toei"><img src="images/issara-team-s.jpg" srcset="images/issara-team-xs.jpg 440w, images/issara-team-s.jpg 720w, images/issara-team.jpg 1400w" sizes="(min-width:900px) 300px, 80vw" width="720" height="540" alt="" loading="lazy" decoding="async"><figcaption>Issara Project team, Khlong Toei</figcaption></figure>
+      <figure class="ph w" data-zoom="images/sangkhla.jpg" data-pos="30% 50%" data-cap="Mobile medical unit clinic, Ban Don Yang refugee camp"><img src="images/sangkhla-s.jpg" srcset="images/sangkhla-xs.jpg 440w, images/sangkhla-s.jpg 720w, images/sangkhla.jpg 1400w" sizes="(min-width:900px) 300px, 80vw" width="720" height="540" alt="" loading="lazy" decoding="async" style="object-position:30% 50%"><figcaption>Mobile medical unit clinic, Ban Don Yang refugee camp</figcaption></figure>
+    </div>
+    <div class="side">
+      <div class="overview">
+        <dl class="years">
+          <div><dt>2025</dt><dd>Co-founded Issara Project in Khlong Toei</dd></div>
+          <div><dt>2026</dt><dd>Mobile medical unit at <span class="nw">Ban Don Yang</span> refugee camp. Volunteer CPR/BLS instructor</dd></div>
+        </dl>
+      </div>
+      <ul class="items">
+        <li><h3>Mobile medical unit, Ban Don Yang refugee camp</h3><p>Sangkhlaburi, Kanchanaburi</p></li>
+        <li><h3>Insulin-injection video in 3 languages</h3><p>Thai, Mon and Burmese, for Sangkhlaburi Hospital</p><div class="tags"><span class="tag">Outstanding project award</span></div></li>
+        <li><h3>Issara Project</h3><p>Hypertension screening in Khlong Toei with Siriraj Hope Club and NUS</p><div class="tags"><span class="tag">Co-Founder</span></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
 
-    const fmtUSD0 = (n) => '$' + Math.round(n).toLocaleString();
+<section class="awards" id="awards" style="--c:var(--navy)" aria-labelledby="h-aw">
+  <div class="wrap">
+    <h2 class="h-sec" id="h-aw">Awards</h2>
+    <div class="aw-wrap">
+      <div class="aw-hero">
+        <figure class="ph" data-zoom="images/ipho.jpg" data-cap="Bronze medal, IPhO 50, Tel Aviv, 2019"><img src="images/ipho-s.jpg" srcset="images/ipho-xs.jpg 330w, images/ipho-s.jpg 540w, images/ipho.jpg 1050w" sizes="(min-width:900px) 200px, 45vw" width="540" height="720" alt="" loading="lazy" decoding="async"><figcaption>Bronze medal, IPhO 50, Tel Aviv, 2019</figcaption></figure>
+        <figure class="ph" data-zoom="images/ipho-stage.jpg" data-cap="Medal ceremony, IPhO 50, Tel Aviv, 2019"><img src="images/ipho-stage-s.jpg" srcset="images/ipho-stage-xs.jpg 440w, images/ipho-stage-s.jpg 720w, images/ipho-stage.jpg 1400w" sizes="(min-width:900px) 200px, 45vw" width="720" height="540" alt="" loading="lazy" decoding="async"><figcaption>Medal ceremony, IPhO 50, Tel Aviv, 2019</figcaption></figure>
+      </div>
+      <ul class="medals">
+        <li><span class="m"><svg viewBox="0 0 24 24" fill="#8a5a00" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 17l-6.1 3.4 1.5-6.8L2.2 9l6.9-.7z"/></svg></span><div><h3 lang="th">รางวัล "<span class="nw">สิ่งชูวงศ์ องอาจยุทธ</span> และ<span class="nw">ธีรพร เลิศรัฐ</span>"</h3><p>Best 5th-year student in Internal Medicine for clinical performance and ethics, Siriraj</p></div><time>2025</time></li>
+        <li><span class="m"><svg viewBox="0 0 24 24" fill="#8a5a00" aria-hidden="true"><path d="M7 4h10v3a5 5 0 01-10 0zM5 5H3v1a4 4 0 004 4M19 5h2v1a4 4 0 01-4 4M9 15h6l1 5H8z"/></svg></span><div><h3>Winner, MDCU Pitching Challenge</h3><p>PodiPatch, 30,000 THB prize</p></div><time>2025</time></li>
+        <li><span class="m s"><svg viewBox="0 0 24 24" fill="#3a4a7a" aria-hidden="true"><path d="M4 6h16v10H4zM8 20h8M12 16v4"/></svg></span><div><h3>Selected oral presentation</h3><p>Siriraj Research Day, ALBI score study</p></div><time>2025</time></li>
+        <li><span class="m s"><svg viewBox="0 0 24 24" fill="#3a4a7a" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 17l-6.1 3.4 1.5-6.8L2.2 9l6.9-.7z"/></svg></span><div><h3>Grand Finalist, NUS Medical Grand Challenge</h3><p>PodiPatch, Singapore</p></div><time>2024</time></li>
+        <li><span class="m"><svg viewBox="0 0 24 24" fill="#8a5a00" aria-hidden="true"><path d="M7 4h10v3a5 5 0 01-10 0zM5 5H3v1a4 4 0 004 4M19 5h2v1a4 4 0 01-4 4M9 15h6l1 5H8z"/></svg></span><div><h3>Winner, UniHack</h3><p>UNITE, hosted by Chula Tech Startup</p></div><time>2021</time></li>
+        <li><span class="m b"><svg viewBox="0 0 24 24" fill="#6b3a12" aria-hidden="true"><circle cx="12" cy="14" r="6"/><path d="M8 2h3l1 5-3 1zM16 2h-3l-1 5 3 1z"/></svg></span><div><h3>Bronze, International Physics Olympiad</h3><p>IPhO 50, Tel Aviv. Honorable Mention, APhO 20</p></div><time>2019</time></li>
+        <li><span class="m b"><svg viewBox="0 0 24 24" fill="#6b3a12" aria-hidden="true"><circle cx="12" cy="14" r="6"/><path d="M8 2h3l1 5-3 1zM16 2h-3l-1 5 3 1z"/></svg></span><div><h3>Bronze, International Astronomy Olympiad</h3><p>IAO XXII, Weihai</p></div><time>2017</time></li>
+      </ul>
+    </div>
+  </div>
+</section>
 
-    function calculateDCA() {
-      const monthly = Number(monthlyEl.value);
-      const years = Number(yearsEl.value);
+</main>
 
-      if (!Number.isFinite(monthly) || !Number.isFinite(years) || monthly <= 0 || years <= 0) {
-        futureEl.textContent = '$0';
-        investedTextEl.textContent = '';
-        barInvested.style.width = '50%';
-        barProfit.style.width = '50%';
-        return;
-      }
+<footer class="contact on-dark" id="contact">
+  <div class="wrap">
+    <div>
+      <p class="big" aria-hidden="true">Contact</p>
+      <h2 class="sr">Contact</h2>
+      <p class="who"><b>Yanaphat Pinijpichitkul</b>Faculty of Medicine Siriraj Hospital, Mahidol University</p>
+    </div>
+    <div class="actions">
+      <a class="btn primary" href="mailto:yanaphat1p@gmail.com">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>yanaphat1p@gmail.com</a>
+      <a class="btn ghost" data-full href="portfolio.pdf" target="_blank" rel="noopener"><span>Full portfolio (PDF)</span></a>
+    </div>
+  </div>
+</footer>
 
-      // Toy model assumption: BTC historical avg annual growth ~69%
-      const annualRate = 0.69;
-      const monthlyRate = Math.pow(1 + annualRate, 1/12) - 1;
-      const totalMonths = Math.floor(years * 12);
+<nav class="bnav on-dark" aria-label="Main menu">
+  <a href="#top" data-nav="top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7v9a1 1 0 01-1 1h-5v-6h-6v6H4a1 1 0 01-1-1z"/></svg>Home</a>
+  <a href="#statement" data-nav="why"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-4.5-9-9.5C1.6 7.6 4.3 4 8 4c2 0 3.2 1 4 2.2C12.8 5 14 4 16 4c3.7 0 6.4 3.6 5 7.5-2 5-9 9.5-9 9.5z"/></svg>Why OB/GYN</a>
+  <a href="#work" data-nav="work"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg>Work</a>
+  <a href="#contact" data-nav="contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Contact</a>
+</nav>
 
-      const futureValue = monthly * ((Math.pow(1 + monthlyRate, totalMonths) - 1) / monthlyRate);
-      const totalInvested = monthly * totalMonths;
+<dialog class="lb" id="lb" aria-label="Photo viewer">
+  <span class="lb-count" id="lb-count" aria-live="polite"></span>
+  <button class="lb-btn lb-close" id="lb-close" type="button" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <div class="lb-stage"><img id="lb-img" alt=""></div>
+  <button class="lb-btn lb-prev" id="lb-prev" type="button" aria-label="Previous photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+  <button class="lb-btn lb-next" id="lb-next" type="button" aria-label="Next photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+  <p class="lb-cap" id="lb-cap"></p>
+</dialog>
 
-      futureEl.textContent = fmtUSD0(futureValue);
-      investedTextEl.textContent = `Total invested: ${fmtUSD0(totalInvested)}`;
+<script>
+(function(){
+  var lb=document.getElementById('lb'),li=document.getElementById('lb-img'),lc=document.getElementById('lb-cap'),
+      ln=document.getElementById('lb-count'),pv=document.getElementById('lb-prev'),nx=document.getElementById('lb-next'),set=[],cur=0,last=null;
+  document.querySelectorAll('[data-zoom]').forEach(function(f){
+    var b=document.createElement('button');b.className='zoom';b.type='button';
+    b.setAttribute('aria-label','Enlarge photo: '+f.dataset.cap);
+    b.addEventListener('click',function(){last=b;open(f)});f.appendChild(b);
+  });
+  function show(i){
+    cur=(i+set.length)%set.length;var f=set[cur];
+    li.src=f.dataset.zoom;li.alt=f.dataset.cap;lc.textContent=f.dataset.cap;
+    ln.textContent=set.length>1?(cur+1)+' / '+set.length:'';pv.hidden=nx.hidden=set.length<2;
+  }
+  function open(f){
+    var scope=f.closest('.chap,.aw-hero,.statement')||document;
+    set=[].slice.call(scope.querySelectorAll('[data-zoom]'));
+    show(set.indexOf(f));if(lb.showModal)lb.showModal();else lb.setAttribute('open','');
+  }
+  lb.addEventListener('close',function(){if(last)last.focus()});
+  document.getElementById('lb-close').onclick=function(){lb.close()};
+  pv.onclick=function(){show(cur-1)};nx.onclick=function(){show(cur+1)};
+  lb.addEventListener('keydown',function(e){if(e.key==='ArrowLeft')show(cur-1);if(e.key==='ArrowRight')show(cur+1)});
+  lb.addEventListener('click',function(e){if(e.target===lb||e.target.classList.contains('lb-stage'))lb.close()});
+  var sx=null;
+  lb.addEventListener('touchstart',function(e){sx=e.touches[0].clientX},{passive:true});
+  lb.addEventListener('touchend',function(e){if(sx===null)return;var dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>50&&set.length>1)show(cur+(dx<0?1:-1));sx=null});
 
-      const investedPercent = Math.max(0, Math.min(100, (totalInvested / futureValue) * 100));
-      barInvested.style.width = investedPercent + '%';
-      barProfit.style.width = (100 - investedPercent) + '%';
-    }
-
-    calcBtn.addEventListener('click', calculateDCA);
-    monthlyEl.addEventListener('input', calculateDCA);
-    yearsEl.addEventListener('input', calculateDCA);
-
-    // Run
-    getSpotPrice();
-    calculateDCA();
-    loadHistory(rangeEl.value);
-  </script>
+  var bar=document.querySelector('.progress'),tick=false,links=document.querySelectorAll('[data-nav]');
+  var groups={top:['top','brief'],why:['statement'],work:['work','clinical','research','leadership','innovation','global','community','awards'],contact:['contact']};
+  var owner={};Object.keys(groups).forEach(function(k){groups[k].forEach(function(id){owner[id]=k})});
+  function atEnd(){var h=document.documentElement;return h.scrollTop>=h.scrollHeight-h.clientHeight-4}
+  function mark(k){links.forEach(function(a){a.setAttribute('aria-current',a.dataset.nav===k?'true':'false')})}
+  function onScroll(){
+    var h=document.documentElement,max=h.scrollHeight-h.clientHeight;
+    bar.style.transform='scaleX('+(max>0?h.scrollTop/max:0)+')';
+    if(atEnd())mark('contact');tick=false;
+  }
+  addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(onScroll)}},{passive:true});
+  mark('top');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){
+      if(atEnd())return;es.forEach(function(e){if(e.isIntersecting)mark(owner[e.target.id])});
+    },{rootMargin:'-45% 0px -50% 0px'});
+    Object.keys(owner).forEach(function(id){var el=document.getElementById(id);if(el)io.observe(el)});
+  }
+})();
+</script>
 </body>
 </html>
